@@ -30,6 +30,13 @@ twitter_username: bbejeck
 github_username: bbejeck 
 paginate: 5
 
+markdown: kramdown
+kramdown:
+    highlighter: rouge
+    syntax_highlighter_opts:
+        block:
+            line_numbers: true
+
 # Build settings
 #theme: minima
 theme: jekyll-theme-hacker
