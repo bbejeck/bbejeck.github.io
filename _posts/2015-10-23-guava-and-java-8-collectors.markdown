@@ -21,7 +21,7 @@ description: How to create custom Java 8 collectors from Guava ImmutableCollecti
 ---
 In this post we are going to discuss creating custom [Collector](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collector.html) instances.  The `Collector` interface was introduced in the [java.util.stream](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html) package when Java 8 was released.  A `Collector` is used to "collect" the results of stream operations.  Results are collected from a stream when the terminal operation `Stream.collect` method is called.  While there are default  implementations available, there are times we'll want to use some sort of custom container.  Our goal today will be to create `Collector` instances that produce Guava [ImmutableCollections](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableCollection.html) and [Multimaps](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Multimap.html). 
 <!--more-->
-###Background Collector Information
+### Background Collector Information
 
 The `Collector` interface is described very well in the [documentation](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collector.html), so here we'll just give a brief overview.  The `Collector` interface defines 3 type 
 parameters and 4 methods:
@@ -43,7 +43,7 @@ public interface Collector<T, A, R> {
 
 Addtionally there 2 static methods `Collector.of`.  The `Collector.of` methods return a new collector based on the provided supplier,accumulator, combinbiner and (optionall) finisher definitions.  Since we're here to create custom `Collector` instances, we won't be covering this functionality. For the first example we'll use a Guava [ImmutableList](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/ImmutableList.html) as a collector.
 
-###Guava ImmutableList Collector Example
+### Guava ImmutableList Collector Example
 Our first step is to create an abstract class that defines the accumulator, combiner and finisher operations.  We're using an abstract class because Guava offers several different immutable collections, so we'll need to provide a different supplier for each one.
 
 ```java
@@ -139,7 +139,7 @@ public void testCollectImmutableList(){
     assertTrue("Should not be able to modify list",unableToModifyList);
   }
 ```
-###Guava Multimaps as Collectors
+### Guava Multimaps as Collectors
 After working with Guava collections I have come to find the [Multimap](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Multimap.html) a very handy abstraction to partition data when you have more than one value for a given key.  So it would be nice a collector to partition the results of our `Stream` operations into Guava `Multimaps`.  We are going to follow the same pattern we used with the `ImmutableCollectors` class.  There is an abstract base class providing the accumulator, combining and finishing functions.  Then different implementations of that abstract class to provide a supplier for the different flavors of Guava `Mulitmaps`.  With that in mind let's look at some code examples:
 ```java
 private static abstract class MultimapCollector<K,T, A extends Multimap<K,T>, R extends Multimap<K,T>> implements Collector  {

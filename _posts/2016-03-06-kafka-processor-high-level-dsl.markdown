@@ -18,7 +18,7 @@ description: An introduction to kafka-streams an abstraction for key-value event
 ---
 <img class="left" src="{{ site.media_url }}/images/kafka_logo.png" />The last [post](http://codingjunkie.net/kafka-processor-part1/) covered the new [Kafka Streams](http://docs.confluent.io/2.1.0-alpha1/streams/index.html) library, specifically the "low-level" Processor API.  This time we are going to cover the "high-level" API, the [Kafka Streams DSL](http://docs.confluent.io/2.1.0-alpha1/streams/developer-guide.html#streams-developer-guide-dsl).  While the Processor API gives you greater control over the details of building streaming applications, the trade off is more verbose code.  In most cases, however, the level of detail provided by the Processor API is not required and the KStream API will get the job done.  Compared to the declarative approach of the Processor API , KStreams uses a more functional style. You'll find building an application is more a matter of stating "what" you want to accomplish versus "how".  Additionally, since many interfaces in the Kafka Streams API are Java 8 syntax compatible (method handles and lambda expressions can be substituted for concrete types), using the KStream DSL allows for building powerful applications quickly with minimal code.  This post won't be as detailed as the previous one, as the description of Kafka Streams applies to both APIs.  Here we'll focus on how to implement the same functionality presented in the previous post with the KStream API. 
 <!-- more -->
-###KStreams DSL In Brief
+### KStreams DSL In Brief
 Before jumping into examples, a brief overview of the KStreams DSL is in order.  The KStreams DSL is composed of two main abstractions; the [KStream](https://github.com/apache/kafka/blob/trunk/streams/src/main/java/org/apache/kafka/streams/kstream/KStream.java) and [KTable](https://github.com/apache/kafka/blob/trunk/streams/src/main/java/org/apache/kafka/streams/kstream/KTable.java) interfaces.  A KStream is a record stream where each key-value pair is an independent record.  Later records in the stream don't replace earlier records with matching keys.  A KTable on the other hand is a "changelog" stream, meaning later records are considered updates to earlier records with the same key.  Some of the methods provided by the KStream DSL have a functional feel:
 
 *     map
@@ -81,11 +81,11 @@ Again we can see that the KStream API gives us the ability to create an event ba
      8. Finally the key and value `Serde` instances for the  pre-aggregation data are provided.
 9.   The last method in the chain is  `to`, which specifies the topic where the aggreagtion results (of each time window) are publised.  Again we provide 2 serde instances, this time for the keys and values that are a result of the aggreagtion.
 
-###Conclusion
+### Conclusion
 
 This wraps up a quick introduction to the KStream API.  Although the coverage is brief, hopefully it's enough to demonstrate how  KStreams enable rapid development of powerful key-value event based applications.  In follow on posts we'll go over some of the other methods that involve joining and merging streams as well as how we can apply 3rd party libraries such as [Ling-Pipe](http://alias-i.com/lingpipe/) to do interesting anlysis on our event streams.
 
-###Resouces
+### Resouces
 *    [Stream Processing Made Simple](http://www.confluent.io/blog/introducing-kafka-streams-stream-processing-made-simple) a blog post from Confluent describing Kafak Streams
 *    Kafka Streams [Documentation](http://docs.confluent.io/2.1.0-alpha1/streams/index.html)
 *    Kafka Streams [Developer Guide](http://docs.confluent.io/2.1.0-alpha1/streams/developer-guide.html)

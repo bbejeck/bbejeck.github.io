@@ -21,7 +21,7 @@ description: How to use Guava Tables as broadcast variables in Spark.
 ---
 Last time we covered [Secondary Sorting](http://codingjunkie.net/spark-secondary-sort/) in [Spark](http://spark.apache.org/).  We took airline performance data and sorted results by airline, destination airport and the amount of delay.  We used id's for all our data. While that approach is good for performance, viewing results in that format loses meaning.  Fortunately, the [Bureau of Transportation](http://transtats.bts.gov/DL_SelectFields.asp?Table_ID=236&DB_Short_Name=On-Time) site offers reference files to download. The reference files are in CSV format with each line consisting of key-value pair.  Our goal is to store the refrence data in hashmaps and leverage [broadcast variables](http://spark.apache.org/docs/latest/programming-guide.html#broadcast-variables) so all operations on different partitions will have easy access to the same data.  We have four fields with codes: airline, origin city airport, orgin city, destination airport and destination city. Two of our code fields use the same reference file (airport id), so we'll need to download 3 files.  But is there an easier approch to loading 3 files into hashmaps and having 3 separate broadcast variables?  There is, by using [Guava Tables](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Table.html).
 <!-- more -->
-###Guava Tables in Brief
+### Guava Tables in Brief
 While a full discussion of the Guava `Table` is beyond the scope of this post, a brief description will be helpful.  It's basically an abstraction for a "hashmap of hashmaps", taking the boiler-plate out of adding or retieving data. For example:
 ```java
 Map<String,Map<String,String>> outerMap = new HashMap<>();
@@ -52,7 +52,7 @@ String innerValue = table.get("key","innerKey");
 table.put("key","innerKey","value")
 ```
 Hopefully this example is enough to show why we'd want to use guava tables over the "hashmap of hashmaps" approach.
-###Loading The Table
+### Loading The Table
 We have 3 files to load into our table for lookups.  The code for doing so is straight forward:
 ```scala
 object GuavaTableLoader {
@@ -87,7 +87,7 @@ object GuavaTableLoader {
 }
 ```
 The `load` method takes the base-path where the reference files are located and list of filenames (there is another `load` method that accepts a comma separated list of filenames).  We iterate over the list of filenames, re-using the basename as the "row-key" and then iterate over the key-value pairs found in the file storing them in the table. Here we are splitting the line on a '#' character.  The values in the reference data contained commas and were surrounded by quotes.  The files were cleaned up by removing the double quotes and changing the delimiter to a '#'.
-###Setting the Guava Tables as a Broadcast Variables
+### Setting the Guava Tables as a Broadcast Variables
 Now we need to integrate the table object into our Spark job as a broadcast variable. For this we will re-use the `SecondarySort` object from the last post: 
 ```scala
     val dataPath = args(0)
@@ -102,7 +102,7 @@ Now we need to integrate the table object into our Spark job as a broadcast vari
     val bcTable = sc.broadcast(table)
 ```
 We've added two parameters, the base-path for the reference files and a comma separated list of reference file names.  After loading our table we create a broadcast variable with the `sc.broadcast` method call.
-###Looking up the Reference Data
+### Looking up the Reference Data
 Now all we have left is to take the sorted results and convert all the id's to more meaningful names.
 ```scala
 val keyedDataSorted = airlineData.repartitionAndSortWithinPartitions(new AirlineFlightPartitioner(5))
@@ -128,7 +128,7 @@ Here we map the sorted results into `DelayedFlight` objects via the `createDelay
  1.   To use the table object we need to first "unwrap" it from the `Broadcast` object.
  2.   The arrival airport id needs to be converted to a `String` as it's an int in the `FlightKey` class but our reference table contains only strings.
    
-###Results
+### Results
 Now the results look like this:
 ```text
 DelayedFlight(American Airlines Inc.,2015-01-01,Dallas/Fort Worth, TX: Dallas/Fort Worth International,Dallas/Fort Worth, TX,Atlanta, GA: Hartsfield-Jackson Atlanta International,Atlanta, GA (Metropolitan Area),-2.0)
@@ -142,9 +142,9 @@ DelayedFlight(American Airlines Inc.,2015-01-01,New York, NY: John F. Kennedy In
 DelayedFlight(American Airlines Inc.,2015-01-01,San Francisco, CA: San Francisco International,San Francisco, CA (Metropolitan Area),Dallas/Fort Worth, TX: Dallas/Fort Worth International,Dallas/Fort Worth, TX,40.0)
 ```
 At quick glance and scrolling all the way to the right we can see that flights on this day into Dallas, TX had some sizable delays.
-###Conclusion
+### Conclusion
 That wraps up how we could use Guava Tables as broadcast variables in a Spark job.  Hopefully the reader can see the benefits of using such an approach.  Thanks for your time.
-###Resources
+### Resources
 *   [Source Code for post](https://github.com/bbejeck/spark-experiments/blob/master/src/main/scala-2.10/bbejeck/sorting/SecondarySort.scala)
 *   [Guava Tables](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Table.html)
 *   [OrderedRDDFunctions](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.OrderedRDDFunctions)

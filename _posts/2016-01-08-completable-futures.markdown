@@ -43,7 +43,7 @@ The full documentation for the CompletionStage is too long to include here, so w
 
 For the rest of this post I will be refering to `CompletableFuture` and `CompletionStage` interchangably.
 
-###Creating A CompleteableFuture
+### Creating A CompleteableFuture
 Creating a CompletableFuture is simple, but not always clear.  The simplest way is the `CompleteableFuture.completedFuture` method which returns an a new, finished CompleteableFuture:
 ```java
     @Test

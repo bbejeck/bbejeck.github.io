@@ -82,10 +82,10 @@ Average Scores using CombingByKey
 Fred's average score : 91.33333333333333
 Wilma's average score : 95.33333333333333
 ```  
-###Conclusion
+### Conclusion
 While the use of `combineByKey` takes a little more work than using a `groupByKey` call, hopefully we can see the benefit in this simple example of how we can improve our spark job performance by reducing the amount of data sent accross the network
 
-###Resources
+### Resources
 *   [Source Code](https://gist.github.com/bbejeck/d3f458b6ec26c23848cd)
 *   [PairRDD API](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions)
 *   [Spark](http://spark.apache.org/docs/latest/index.html)

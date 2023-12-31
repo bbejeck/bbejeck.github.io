@@ -21,10 +21,10 @@ In this post we are going to cover working with the [Optional](https://docs.orac
 
 Since so many others have done a good job of [describing](http://blog.joda.org/2014/11/optional-in-java-se-8.html) the `Optional` type, we won't be doing so here.  Rather for this post, we are going to cover how to use the `Optional` type without resorting to directly accessing the value contained or doing explicit checks if a value is present. 
 <!--more-->
-###Working with Optionals
+### Working with Optionals
 Using the `Optional` class helps, to a large degree,  prevent NullPointerExceptions.  This is accomplished by allowing developers to more clearly define where missing values are to be expected.  But at some point we'll need to work with those potential values.  The `Optional` class provides two methods that fit the bill right away: the`Optional.isPresent()` and `Optional.get()` methods.  But our goal today is to work with `Optional` types and avoid (or at least delay until absolutely neccessary) methods that directly query or access the potential value contained within.
 
-####Conditional Operations
+#### Conditional Operations
 Java developers are used to writing something like the following:
 ```java
 List<String> values = new ArrayList<>;
@@ -51,7 +51,7 @@ Now instead we can use the `Optional.ifPresent(Consumer<? super T> consumer)` me
 ```
 From above, if the value is present it will be added to the list via a `List.add()` call, otherwise the operation is skipped.
 
-####Conditionally Changing Optional Values
+#### Conditionally Changing Optional Values
 Another common scenario is to check if a value is not null before we transform it.  Conisider this very simple example:
 ```java
 String longString = getValue();
@@ -95,7 +95,7 @@ While this is a trivial example, we perform the mapping operation without explic
 ```
 By using the `flatMap` method we can avoid the awkward return type of `Option<Option<String>>` by "flattening" out the results into a single `Optional` container.
 
-####Filtering Optionals
+#### Filtering Optionals
 There is also the ability to filter `Optional` objects.  If the value is present and matches the given predicate, the `Optional` is returned with it's value intact, otherwise an empty `Optional` is returned.  Here's an exmaple of the `Optional.filter` method:
 
 ```java
@@ -109,7 +109,7 @@ There is also the ability to filter `Optional` objects.  If the value is present
         assertThat(notFiltered.isPresent(), is(true));
     }
 ```
-####Specifying Default Values
+#### Specifying Default Values
 At some point we'll want to retieve the value contained within an `Optional`, but if it's not found, provide a default value instead.  But instead of resorting to the "if not present then get" pattern, we can specify default values.  There are two methods that allow for setting default values  `Oprional.orElse` and `Optional.orElseGet`. With `Optional.orElse` we direclty supply the default value and with `Optional.orElseGet` we provide a [Supplier](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html) that is used to provide the default value.
 
 ```java
@@ -137,7 +137,7 @@ At some point we'll want to retieve the value contained within an `Optional`, bu
         assertThat(testObject.category, is("justCreated"));
     }
 ```
-####When a Null/Absent Value is not Expected
+#### When a Null/Absent Value is not Expected
 For those cases where a missing value represents an error condition there is the `Optional.orElseThrow` method:
 
 ```java
@@ -149,7 +149,7 @@ For those cases where a missing value represents an error condition there is the
     }
 ```
 
-###Working with Collections of Optionals
+### Working with Collections of Optionals
 Finally, let's cover how we could use these methods in conjunction with [Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html) of `Optional` instances.  It would be nice if we could specify a [Collector](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collector.html) that simply returned the values found or values plus defaults.  Just for fun let's define one:
 ```java
  public static <T> Collector<Optional<T>, List<T>, List<T>> optionalToList() {

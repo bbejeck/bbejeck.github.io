@@ -17,7 +17,7 @@ description: Looking at solutions to issues with Spark not encountered on a dail
 ---
 In the last two posts, we covered alternatives to using the `groupByKey` method, `aggregateByKey` and `combineByKey`.  In this post we are going to consider methods/situtaions you might not encounter for your everyday Spark job, but will come in handy when the need arises.
 
-###Stripping The First Line (or First N Lines) of a File
+### Stripping The First Line (or First N Lines) of a File
 While doing some testing, I wanted to strip off the first line of a file.  Granted I could have easily created a copy with the header removed, but curiosity got the better of me.  Just how would I remove the first line of a file?  The answer is to use the `mapPartitionsWithIndex` method.
 <!-- more -->
 ```scala Stripping First Line of a File example
@@ -39,7 +39,7 @@ Second line to work with BBB
 ```
 The `mapPartitionsWithIndex` method passes the index (zero based) of the partition and an iterator containing the data to a user provided function (here `skipLines`).  Using this example we could remove any number lines or work with the entire partition at one time (but that's the subject of another post!)
 
-###Avoiding Lists of Iterators
+### Avoiding Lists of Iterators
 Often when reading in a file, we want to work with the individual values contained in each line separated by some delimiter.  Splitting a delimited line is a trivial operation:
 ```scala Splitting Lines with Coma Separted Values
 newRDD = textRDD.map(line => line.split(","))
@@ -69,7 +69,7 @@ foo : bar : baz : larry : moe : curly : one : two : three
 ```
 As we can see the `map` example returned an `Array` containing 3 `Array[String]` instances, while the `flatMap` call returned individual values contained in one `Array`.
 
-###Maintaining An RDD's Original Partitoning 
+### Maintaining An RDD's Original Partitoning
 When working in Spark, you quickly come up to speed with the `map` function.  It's used to take a collection of values and 'map' them into another type.  Typically when working with key-value pairs, we don't need the key to remain the same type, if we need to keep the key at all.  However, there are cases where we'll need to keep the original RDD partitioning.  This presents a problem; when calling the `map` function there is no guarantee that the key has not been modified.  What's our option? We use the `mapValues` function (on the [PairRDDFunctions](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.rdd.PairRDDFunctions) class) which allows us to change the values and retain the original key and partitioning of the RDD.
 ```scala Mapping Values Only
 //Details left out for clarity
@@ -87,10 +87,10 @@ Mapping Results
 (1,FOO) -> (2,BAR) -> (3,BAZ)
 (1,FOO) -> (2,BAR) -> (3,BAZ)
 ```
-###Conclusion 
+### Conclusion
 This has been a short tour of some methods we can use when we encounter an unfamiliar situation writing Spark jobs.  Thanks for your time.
 
-###Resources
+### Resources
 *   [Source Code](https://github.com/bbejeck/spark-experiments)
 *   [Spark Scala API](http://spark.apache.org/docs/latest/api/scala/index.html#package)
 *   [Learning Spark](http://shop.oreilly.com/product/0636920028512.do)
