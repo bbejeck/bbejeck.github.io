@@ -26,7 +26,7 @@ In this post we are going to discuss creating custom [Collector](https://docs.or
 The `Collector` interface is described very well in the [documentation](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collector.html), so here we'll just give a brief overview.  The `Collector` interface defines 3 type 
 parameters and 4 methods:
 
-```java Collector Interface
+```java
 public interface Collector<T, A, R> {
     Supplier<A> supplier();
     BiConsumer<A,T> accumulator();
@@ -46,7 +46,7 @@ Addtionally there 2 static methods `Collector.of`.  The `Collector.of` methods r
 ###Guava ImmutableList Collector Example
 Our first step is to create an abstract class that defines the accumulator, combiner and finisher operations.  We're using an abstract class because Guava offers several different immutable collections, so we'll need to provide a different supplier for each one.
 
-```java Abstract Base Class for Guava Immutable Collection Collectors
+```java
 
 private static abstract class ImmutableCollector<T, A extends ImmutableCollection.Builder, R extends ImmutableCollection<T>> implements Collector {
 
@@ -74,7 +74,7 @@ private static abstract class ImmutableCollector<T, A extends ImmutableCollectio
 ```
 Now that we have our collector functionality defined, we'll provide different implementations of our base class to provide suppliers for different types of immutable collectors:
 
-```java Implementations Providing Different Suppliers
+```java
 private static class ImmutableSetCollector<T> extends ImmutableCollector {
   @Override
   public Supplier<ImmutableSet.Builder<T>> supplier() {
@@ -102,7 +102,7 @@ private static class ImmutableSetCollector<T> extends ImmutableCollector {
  }   
 ```
 You will notice here that in the `ImmutableSetCollector` implementation we have overridden the characteristics of our `ImmutableSet` collector to mark it as concurrent (accumulator function can be called from multiple threads) and unordered (elements won't be maintained in insertion order). Finally we wrap all this up a the [ImmutableCollectors](https://github.com/bbejeck/Java-8/blob/master/src/main/java/bbejeck/collector/ImmutableCollectors.java) class and provdide static methods to easily create our collectors:
-```java ImmutableCollectors Class
+```java
 public class ImmutableCollectors {
 
    public static <E> ImmutableListCollector<E> ofList() {
@@ -120,7 +120,7 @@ public class ImmutableCollectors {
 }
 ```
 Here's an example of using the `ImmutableListCollector` in a unit test:
-```java Junit Example
+```java
 @Test
 public void testCollectImmutableList(){
  List<String> things = Lists.newArrayList("Apple", "Ajax", "Anna", "banana", "cat", "foo", "dog", "cat");
@@ -141,7 +141,7 @@ public void testCollectImmutableList(){
 ```
 ###Guava Multimaps as Collectors
 After working with Guava collections I have come to find the [Multimap](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Multimap.html) a very handy abstraction to partition data when you have more than one value for a given key.  So it would be nice a collector to partition the results of our `Stream` operations into Guava `Multimaps`.  We are going to follow the same pattern we used with the `ImmutableCollectors` class.  There is an abstract base class providing the accumulator, combining and finishing functions.  Then different implementations of that abstract class to provide a supplier for the different flavors of Guava `Mulitmaps`.  With that in mind let's look at some code examples:
-```java Base Functionality Defined
+```java
 private static abstract class MultimapCollector<K,T, A extends Multimap<K,T>, R extends Multimap<K,T>> implements Collector  {
 
   private Function<T, K> keyFunction;
@@ -173,7 +173,7 @@ private static abstract class MultimapCollector<K,T, A extends Multimap<K,T>, R 
 ```
 There is one small difference here though.  We need to provide a function to determine the key to use when partitioning the data.  The aptly named `keyFunction` provided at object instantiation time fills this need. Here are the implementations of the base class providing different suppliers:
 
-```java Implementations with Different Suppliers
+```java
  private static class ListMulitmapCollector<K,T> extends MultimapCollector {
   private ListMulitmapCollector(Function<T, K> keyFunction) {
         super(keyFunction);
@@ -206,7 +206,7 @@ There is one small difference here though.  We need to provide a function to det
 ```   
 Again we'll up this code in a container class (`MultimapCollectors`) and provide static methods for creating the different collectors:
 
-```java Multimap Collectors Class
+```java
     public class MultiMapCollectors {
 
   public static <K,T> ListMulitmapCollector<K,T> listMultimap(Function<T, K> keyFunction) {
@@ -223,7 +223,7 @@ Again we'll up this code in a container class (`MultimapCollectors`) and provide
 ``` 
 Finally, here's an exmample of a `Multimap` collector (HashSetMultimap) in action:
 
-```java JUnit example of HashSetMultimap
+```java
     public class MultiMapCollectorsTest {
 
     private List<TestObject> testObjectList;
@@ -247,10 +247,10 @@ Finally, here's an exmample of a `Multimap` collector (HashSetMultimap) in actio
     }
    //other details left out for clarity
 ```
-###Conclusion
+### Conclusion
 That wraps up our quick introduction to creating custom `Collector` instances in Java 8.  Hopefully we've demonstrated the usefulness the `Collector` interface and he we could go about creating custom collectors.
 
-###References
+### References
 *   [ImmutableCollectors](https://github.com/bbejeck/Java-8/blob/master/src/main/java/bbejeck/collector/ImmutableCollectors.java)
 *   [MultmapCollectors](https://github.com/bbejeck/Java-8/blob/master/src/main/java/bbejeck/collector/MultiMapCollectors.java)
 *   [Guava Collections](http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/package-summary.html)

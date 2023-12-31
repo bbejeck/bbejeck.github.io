@@ -26,7 +26,7 @@ Using the `Optional` class helps, to a large degree,  prevent NullPointerExcepti
 
 ####Conditional Operations
 Java developers are used to writing something like the following:
-```java Adding Element to as List or Collection
+```java
 List<String> values = new ArrayList<>;
 String someString = getValue();
 if(someString != null){
@@ -34,7 +34,7 @@ if(someString != null){
 }
 ```
 Now instead we can use the `Optional.ifPresent(Consumer<? super T> consumer)` method. If the value is present the provided [Consumer](https://docs.oracle.com/javase/8/docs/api/java/util/function/Consumer.html) will be invoked with the value contained as a parameter.  Here's an example presented in a unit test:
-```java Adding Optional Value to a List
+```java
     @Test
     public void optional_is_present_add_to_list_without_get_test() {
         List<String> words = Lists.newArrayList();
@@ -53,7 +53,7 @@ From above, if the value is present it will be added to the list via a `List.add
 
 ####Conditionally Changing Optional Values
 Another common scenario is to check if a value is not null before we transform it.  Conisider this very simple example:
-```java Substring
+```java
 String longString = getValue();
 String smallerWord = null;
 if(longString != null){
@@ -61,7 +61,7 @@ if(longString != null){
 }
 ```
 To transform the value of an `Optional` we can use the [map](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#map-java.util.function.Function-) method.  Here's an example, again in the context of a unit test:
-```java Optional.map Substring Example
+```java
     @Test
     public void optional_map_substring_test() {
         Optional<String> number = Optional.of("longword");
@@ -76,7 +76,7 @@ To transform the value of an `Optional` we can use the [map](https://docs.oracle
 ```
 While this is a trivial example, we perform the mapping operation without explicitly checking if a value is present or retrieving the value to apply the given function.  We simply provide the function and allow the API to handle the details.  There also is an [Optional.flatMap](https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html#flatMap-java.util.function.Function-) function.  We use the `Optional.flatMap` method when we have an existing `Optional` and want to apply a function that also returns an a type of `Optional`.  For example:
 
-```java Optional FlatMap example
+```java
     @Test
     public void optional_flat_map_test() {
         Function<String, Optional<String>> upperCaseOptionalString = s -> (s == null) ? Optional.empty() : Optional.of(s.toUpperCase());
@@ -98,7 +98,7 @@ By using the `flatMap` method we can avoid the awkward return type of `Option<Op
 ####Filtering Optionals
 There is also the ability to filter `Optional` objects.  If the value is present and matches the given predicate, the `Optional` is returned with it's value intact, otherwise an empty `Optional` is returned.  Here's an exmaple of the `Optional.filter` method:
 
-```java Optional Filter Example
+```java
     @Test
     public void optional_filter_test() {
         Optional<Integer> numberOptional = Optional.of(10);
@@ -112,7 +112,7 @@ There is also the ability to filter `Optional` objects.  If the value is present
 ####Specifying Default Values
 At some point we'll want to retieve the value contained within an `Optional`, but if it's not found, provide a default value instead.  But instead of resorting to the "if not present then get" pattern, we can specify default values.  There are two methods that allow for setting default values  `Oprional.orElse` and `Optional.orElseGet`. With `Optional.orElse` we direclty supply the default value and with `Optional.orElseGet` we provide a [Supplier](https://docs.oracle.com/javase/8/docs/api/java/util/function/Supplier.html) that is used to provide the default value.
 
-```java Optional.orElse Optional.orElseGet Example
+```java
     @Test
     public void optional_or_else_and_or_else_get_test() {
         String defaultValue = "DEFAULT";
@@ -140,7 +140,7 @@ At some point we'll want to retieve the value contained within an `Optional`, bu
 ####When a Null/Absent Value is not Expected
 For those cases where a missing value represents an error condition there is the `Optional.orElseThrow` method:
 
-```java Optional.orElseThrow Example
+```java
     @Test(expected = IllegalStateException.class)
     public void optional_or_else_throw_test() {
         Optional<String> shouldNotBeEmpty = Optional.empty();
@@ -151,7 +151,7 @@ For those cases where a missing value represents an error condition there is the
 
 ###Working with Collections of Optionals
 Finally, let's cover how we could use these methods in conjunction with [Collections](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html) of `Optional` instances.  It would be nice if we could specify a [Collector](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collector.html) that simply returned the values found or values plus defaults.  Just for fun let's define one:
-```java Collector for Optionals
+```java
  public static <T> Collector<Optional<T>, List<T>, List<T>> optionalToList() {
     return optionalValuesList((l, v) -> v.ifPresent(l::add));
  }
@@ -174,7 +174,7 @@ return Collector.of(supplier, accumulator, combiner, finisher);
 ```
 Here we've defined a `Collector` that returns a `List` containing the values found in a `Collection` of `Optional` types.  There is also an overloaded version where we can specify a default value.  Let's wrap this up with a unit test showing the new `Collector` in action:
 
-```java Collector of Optional Types
+```java
 //some details left out for clarity
 
 private List<String> listWithNulls = Arrays.asList("foo", null, "bar", "baz", null);
@@ -205,10 +205,10 @@ public void collect_optional_with_default_values_test(){
 ```    
 In the first test, a `List` containing only the present values is returned, and in the second test there are defualt values as specified by the given parameter.
 
-###Conclusion 
+### Conclusion
 We've covered how to use the methods found in the `Optional` class.  By making use of methods demonstrated here, working with missing data is bound to be easier and less error prone.
 
-###Resources
+### Resources
 *   [Unit Test for Optional Methods](https://github.com/bbejeck/Java-8/blob/master/src/test/java/bbejeck/optional/OptionalTest.java)
 *   [CustomCollectors](https://github.com/bbejeck/Java-8/blob/master/src/main/java/bbejeck/collector/CustomCollectors.java) for Optional types.
 *   [Using And Avoiding Null](https://github.com/google/guava/wiki/UsingAndAvoidingNullExplained)

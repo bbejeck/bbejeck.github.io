@@ -23,7 +23,7 @@ Last time we covered [Secondary Sorting](http://codingjunkie.net/spark-secondary
 <!-- more -->
 ###Guava Tables in Brief
 While a full discussion of the Guava `Table` is beyond the scope of this post, a brief description will be helpful.  It's basically an abstraction for a "hashmap of hashmaps", taking the boiler-plate out of adding or retieving data. For example:
-```java Guava Table vs HashMaps
+```java
 Map<String,Map<String,String>> outerMap = new HashMap<>();
 
 Map<String,String> inner = outerMap.get("key");
@@ -54,7 +54,7 @@ table.put("key","innerKey","value")
 Hopefully this example is enough to show why we'd want to use guava tables over the "hashmap of hashmaps" approach.
 ###Loading The Table
 We have 3 files to load into our table for lookups.  The code for doing so is straight forward:
-```scala Loading Guava Tables
+```scala
 object GuavaTableLoader {
 
   //custom type for convenience
@@ -89,7 +89,7 @@ object GuavaTableLoader {
 The `load` method takes the base-path where the reference files are located and list of filenames (there is another `load` method that accepts a comma separated list of filenames).  We iterate over the list of filenames, re-using the basename as the "row-key" and then iterate over the key-value pairs found in the file storing them in the table. Here we are splitting the line on a '#' character.  The values in the reference data contained commas and were surrounded by quotes.  The files were cleaned up by removing the double quotes and changing the delimiter to a '#'.
 ###Setting the Guava Tables as a Broadcast Variables
 Now we need to integrate the table object into our Spark job as a broadcast variable. For this we will re-use the `SecondarySort` object from the last post: 
-```scala Adding Table as Broadcast Variable
+```scala
     val dataPath = args(0)
     val refDataPath = args(1)
     val refDataFiles = args(2)
@@ -104,7 +104,7 @@ Now we need to integrate the table object into our Spark job as a broadcast vari
 We've added two parameters, the base-path for the reference files and a comma separated list of reference file names.  After loading our table we create a broadcast variable with the `sc.broadcast` method call.
 ###Looking up the Reference Data
 Now all we have left is to take the sorted results and convert all the id's to more meaningful names.
-```scala Mapping the Sorted Results to Reference Data
+```scala
 val keyedDataSorted = airlineData.repartitionAndSortWithinPartitions(new AirlineFlightPartitioner(5))
 
 val translatedData = keyedDataSorted.map(t => createDelayedFlight(t._1, t._2, bcTable))
@@ -130,7 +130,7 @@ Here we map the sorted results into `DelayedFlight` objects via the `createDelay
    
 ###Results
 Now the results look like this:
-```text Mapped Flight Results
+```text
 DelayedFlight(American Airlines Inc.,2015-01-01,Dallas/Fort Worth, TX: Dallas/Fort Worth International,Dallas/Fort Worth, TX,Atlanta, GA: Hartsfield-Jackson Atlanta International,Atlanta, GA (Metropolitan Area),-2.0)
 DelayedFlight(American Airlines Inc.,2015-01-01,Dallas/Fort Worth, TX: Dallas/Fort Worth International,Dallas/Fort Worth, TX,Washington, DC: Ronald Reagan Washington National,Washington, DC (Metropolitan Area),-2.0)
 DelayedFlight(American Airlines Inc.,2015-01-01,Los Angeles, CA: Los Angeles International,Los Angeles, CA (Metropolitan Area),Washington, DC: Ronald Reagan Washington National,Washington, DC (Metropolitan Area),-14.0)

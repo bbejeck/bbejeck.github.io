@@ -27,7 +27,7 @@ Last year I completed an intro to [functional progamming course](https://courses
 First a little more background information will be helpful.  Functions that accept functions as arguments or return functions are called [*higher order functions*](https://en.wikipedia.org/wiki/Higher-order_function).  Higher order functions are very powerful for solving problems.  Having partially applied functions means we  don't have to have *all* the parameters at one time.  Instead we can gather bits of information as we go and when we have all the required information we finally compute our result.  Partially applied functions also provide great flexibilty in composing new functions.  By simply providing different inital or seed values, we have an almost unlimted abiltity to handle different situations in our code.  Let's look at an example.
 ### Partially Applied Functions Example
 Now we'll show how to use partially applied functions in Java 8.  Here's our base functions:
-```java Base Functions
+```java
 Function<Integer,Function<Integer,Function<BinaryOperator<Integer>,Integer>>> someComputation = i1 -> i2 -> f -> f.apply(i1,i2);
 
     BinaryOperator<Integer> mult = (i,j) -> i * j;
@@ -35,7 +35,7 @@ Function<Integer,Function<Integer,Function<BinaryOperator<Integer>,Integer>>> so
     BinaryOperator<Integer> sumSquares = (i,j) -> (i*i) + (j*j);
 ```
  What we have is a function `someComputation` that will take two numbers and apply some sort of computation using both numbers.  We also have snuck in a differnt functional interface here [BinaryOperator](https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html).  The `BinaryOperator` is sugar for a function that takes two paremters and has a return value of the same type. Admittedly, the syntax of partially applied functions in java can be cumbersome especially compared to scala or haskell. At least we can use this approach, as prior to java 8, using partially applied functions without lambda expressions would have not have been feasable.  This is a very simple example of partially applied functions, but I think it gets the point accross.  Here's our code in action in a unit test:
-```java Partial Functions Unit Test
+```java
 public class PartiallyAppliedFunctionsTest {
 
     Function<Integer,Function<Integer,Function<BinaryOperator<Integer>,Integer>>> someComputation = i1 -> i2 -> f -> f.apply(i1,i2);

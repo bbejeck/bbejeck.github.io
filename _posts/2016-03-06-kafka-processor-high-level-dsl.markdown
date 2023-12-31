@@ -43,7 +43,7 @@ For the first KStream example we are going to re-use the first one from the Proc
 
 Our requirements have not changed, but instead of providing 3 separate Processor instances, we can use `KStream.mapValues` and use lambda expressions instead:
 
-```java KStreams Purchase Example
+```java
 KStream<String,Purchase> purchaseKStream = kStreamBuilder.stream(stringDeserializer,purchaseJsonDeserializer,"src-topic")
                 .mapValues(p -> Purchase.builder(p).maskCreditCard().build());
 
@@ -58,7 +58,7 @@ It's impressive that we have constructed our entire event stream operation with 
 ### KStreams Stateful Operations Example
 For the second KStream example, we have a stream of simulated stock purchases.We want to publish the individual trades to one topic and periodic summary analysis of all trades grouped by ticker symbol to another topic.
 
-```java KStreams Stocks Example
+```java
 KStream<String,StockTransaction> transactionKStream =  kStreamBuilder.stream(stringSerde,transactionSerde,"stocks");
  transactionKStream.through(stringSerde, transactionSerde,"stocks-out")
                 .map((k,v)-> new KeyValue<>(v.getSymbol(),v))

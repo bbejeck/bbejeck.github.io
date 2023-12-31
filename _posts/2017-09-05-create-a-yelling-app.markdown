@@ -41,7 +41,7 @@ finally, a processor that writes results out to a topic. I’m going to
 show the whole application first; then I’ll walk through and explain
 each piece.
 
-```java Listing 1 Hello World – The Yelling Application
+```java
 
  public class KafkaStreamsYellingApp {
     public static void main(String[] args) {
@@ -97,7 +97,7 @@ default values provided. Attempting to start a Kafka Streams program
 without these two properties defined results in throwing a
 ConfigException.
 
-```java Listing 2 Setting Configuration Items
+```java
    props.put(StreamsConfig.APPLICATION_ID_CONFIG, "yelling_app_id");
    props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 ```
@@ -120,7 +120,7 @@ ConfigException.
 
 ***Serde Creation***
 
-```java Listing 3 Instantiating a String Serde
+```java
     Serde<String> stringSerde = Serdes.String();
 ```
 
@@ -160,7 +160,7 @@ Figure 2 Creating the Source Node of the 'Yelling' App
 <img src="{{ site.media_url }}/images/ks/figure_2.jpg"/>
 
 
-```java Listing 4 Defining the Source for the Stream
+```java
    KStream<String,String> simpleFirstStream = kStreamBuilder.stream(stringSerde, stringSerde, "src-topic");
 ```
 
@@ -176,7 +176,7 @@ Figure 3 Adding the UpperCase Processor to the 'Yelling' App
 <img src="{{ site.media_url }}/images/ks/figure_3.jpg"/>
 
 
-```java Listing 5 Mapping Incoming Text to Uppercase
+```java
    KStream<String, String> upperStream = simpleFirstStream.mapValues(String::toUpperCase);
 ```
 
@@ -213,7 +213,7 @@ Figure 4 Adding Processor for Writing 'Yelling' App Results
 <img src="{{ site.media_url }}/images/ks/figure_4.jpg"/>
 Figure 4 Adding Processor for Writing 'Yelling' App Results
 
-```java Listing 6 Creating a Sink Node
+```java
    upperStream.to(stringSerde, stringSerde, "out-topic");
 ```
 
@@ -237,7 +237,7 @@ specified in the configuration instead.
 In our example above we used three lines (steps 5, 6, and 7 from listing
 1) to build the topology.
 
-```java Listing 7 Building Processor Topology in Stages
+```java
    KStream<String,String> simpleFirstStream = kStreamBuilder.stream(stringSerde, stringSerde, "src-topic");
    KStream<String, String> upperStream = simpleFirstStream.mapValues(String::toUpperCase);
    upperStream.to(stringSerde, stringSerde, "out-topic");
@@ -251,7 +251,7 @@ Returning a KStream object allows for using the "fluent interface" style
 of programming. To demonstrate this idea, here’s another way you could
 have constructed the yelling application topology:
 
-```java Listing 8 Building Processor Topology Using Fluent Style
+```java
    kStreamBuilder.stream(stringSerde,stringSerde,"src-topic").mapValues(String::toUpperCase).to(stringSerde,stringSerde,"out-topic");
 ```
 

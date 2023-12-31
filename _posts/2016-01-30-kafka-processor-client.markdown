@@ -29,7 +29,6 @@ While either of those approaches are great, in some cases it would be nice to ha
  
  <!-- more -->
 This marks a start of a series covering the new Kafka processor client, with this post covering the "lower-level" processor functionality.  In subsequent posts we'll cover the "higher-level" DSL and advanced use cases where we'll bring in other technologies.  For a full description of the motivation and goals of the processor client the reader is encouraged to read the original [proposal](https://cwiki.apache.org/confluence/display/KAFKA/KIP-28+-+Add+a+processor+client#KIP-28-Addaprocessorclient-Startup).
-*Disclaimer:* I'm not affiliated with [Confluent](http://www.confluent.io/), just an avid user of Kafka.
 
 ### Potential Use Cases For the Processor API
 In *my opinion* here are a few reasons the Processor API will be a very useful tool: 
@@ -46,7 +45,7 @@ The first example of the processor we'll transform fictitious customer purchase 
 3.    A procssor to collect the zip code and the item purchased to help determine shopping patterns.
   
 Here's the code for our 3 processors
-```java Three Processors for First Example
+```java
 public class CreditCardAnonymizer extends AbstractProcessor<String, Purchase> {
 
     private static final String CC_NUMBER_REPLACEMENT="xxxx-xxxx-xxxx-";
@@ -90,7 +89,7 @@ Let's breifly describe the structure of the processor objects.  All three proces
 ###Building the Graph of Processors
 Now we need to define the [DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph) to determine the flow of messages.  This is where "the rubber meets the road" so to speak for the processor API.  To build our graph of processing nodes we use the [ToplogyBuilder](https://github.com/apache/kafka/blob/trunk/streams/src/main/java/org/apache/kafka/streams/processor/TopologyBuilder.java).  Although our messages are json, we need to define [Serializer](https://github.com/apache/kafka/blob/trunk/clients/src/main/java/org/apache/kafka/common/serialization/Serializer.java) and [Desrializer](https://github.com/apache/kafka/blob/trunk/clients/src/main/java/org/apache/kafka/common/serialization/Deserializer.java) instances since the processors work with types.  Here's the portion of the code from the [PurchaseProcessorDriver](https://github.com/bbejeck/kafka-streams/blob/master/src/main/java/bbejeck/processor/purchases/PurchaseProcessorDriver.java) the builds the graph topology and serializers/deserializers.
 
-```java Building the DAG 
+```java
 
 //Serializers for types used in the processors
 JsonDeserializer<Purchase> purchaseJsonDeserializer = new JsonDeserializer<>(Purchase.class);
@@ -126,13 +125,13 @@ There's several steps here, so let's do a quick walk through
 Here's a diagram of the final result of the TopologyBuilder:
 <img class="center" src="{{ site.media_url }}/images/processorFlow.jpg" /> 
 
-###Stateful Processors
+### Stateful Processors
 The processor API is not limited to working with current values as they arrive, but is also capable of maintaining state to use in aggregation, summation or joining messages that arrive later.  To take advantage of stateful processing, create a [KeyValueStore](https://github.com/apache/kafka/blob/trunk/streams/src/main/java/org/apache/kafka/streams/state/KeyValueStore.java) by using the `TopologyBuilder.addStateStore` method when creating the processing topology.  There are two types of stores that can be created: 1)in memory and 2) a [RocksDB](http://rocksdb.org/) store which takes advantage of using off-heap memory.  The choice of which one to use could depend on how long lived the values will be.  For a larger number of fairly static values the RocksDB would be a good choice, but for short lived entries the in-memory might be a better fit.  The [Stores](https://github.com/apache/kafka/blob/trunk/streams/src/main/java/org/apache/kafka/streams/state/Stores.java) class provides the serializer/deserializer instances when specifying String, Integer or Long keys and values.  But if you are using a custom type for the keys and/or values, you'll need to provide a custom [Serializer](https://github.com/apache/kafka/blob/trunk/clients/src/main/java/org/apache/kafka/common/serialization/Serializer.java) and [Deserializer](https://github.com/apache/kafka/blob/trunk/clients/src/main/java/org/apache/kafka/common/serialization/Deserializer.java).
 
-###Stateful Processor Example
+### Stateful Processor Example
 To demonstrate the basic use of state in the processor API, we'll use a another example, stock trading.  In this example the processor will capture results for each trade and store aggregate information by ticker symbol.  The aggregate information is then published periodically.   
 
-```java The Stateful Processor
+```java
 public class StockSummary extends AbstractProcessor<String, StockTransaction> {
 
     private KeyValueStore<String, StockTransactionSummary> summaryStore;
@@ -187,10 +186,10 @@ In the `init` method we are:
 
 The `punctuate` method iterates over all the values in the store and if they have been updated with the last 11 seconds, the StockTransactionSummary object is sent to consumers.
 
-###Constructing a TopologyBuilder with a State Store
+### Constructing a TopologyBuilder with a State Store
 As in the previous example, looking at the processor code is only half the story.  Here's the section from the [source code](https://github.com/bbejeck/kafka-streams/blob/master/src/main/java/bbejeck/processor/stocks/StockSummaryStatefulProcessorDriver.java) that creates our `TopologyBuilder` including a `KeyValueStore`:
 
-```java Stateful TopologyBuilder
+```java
 
  TopologyBuilder builder = new TopologyBuilder();
 
@@ -216,14 +215,14 @@ As in the previous example, looking at the processor code is only half the story
 ```
 For the most part, this is very similiar code in terms of creating serializers, deserializers and the topology builder. But there is one difference.  On lines 13 and 14 we are creating an in-memory state store (named "summary") to be used by the processor. The name passed to the `Stores.create` method is the same we used in the processor `init` method to retieve the store.  When specifying the keys we can use the convenience method `Stores.withStringKeys()` that requires no argments since Strings are a supported type.  But since we are using a typed value, the `withValues` method is used and provides serializer and deserializer instances.
 
-###Running the Processors with Example Code
+### Running the Processors with Example Code
 
 The examples shown here can be run against a live Kafka cluster. Instructions  are provided in the [github repository](https://github.com/bbejeck/kafka-streams) for the blog.
 
-###Conclusion
+### Conclusion
 So far we have covered the "lower level" portion of the Processor API for Kafka.  Hopefully one can see the usefulness and versatility this new API will bring to current and future users of Kafka.  In the next post we will cover the "higher level" DSL api and cover addtion topics such as joining and time window functions.  One final thing to keep in mind is that the Processor API/Kafka streams is a work in progress and will continue to change for a while.
 
-###Resources
+### Resources
 
 *    [kafka-streams](https://github.com/bbejeck/kafka-streams) source code for this post.
 *    [Main Kafka Site](http://kafka.apache.org/)

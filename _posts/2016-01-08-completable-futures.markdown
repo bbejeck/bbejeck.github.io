@@ -28,7 +28,7 @@ When Java 8 was released a while ago, a great concurrency tool was added, the [C
 3.    Canceling and forcing completion.
 <!-- more -->
 
-###CompletableFuture Primer
+### CompletableFuture Primer
 Before we dig into using CompleteableFutures, some background information is needed.  The CompleteableFuture implements the [CompletionStage](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletionStage.html) interface.  The javadoc consisely explains what the CompletionStage is:
 
 >A stage of a possibly asynchronous computation, that performs an action or computes a value when another CompletionStage completes. A stage completes upon termination of its computation, but this may in turn trigger other dependent stages.  
@@ -45,7 +45,7 @@ For the rest of this post I will be refering to `CompletableFuture` and `Complet
 
 ###Creating A CompleteableFuture
 Creating a CompletableFuture is simple, but not always clear.  The simplest way is the `CompleteableFuture.completedFuture` method which returns an a new, finished CompleteableFuture:
-```java CompletedFuture Example
+```java
     @Test
     public void test_completed_future() throws Exception {
       String expectedValue = "the expected value";
@@ -55,7 +55,7 @@ Creating a CompletableFuture is simple, but not always clear.  The simplest way 
 ```    
 As unexciting as this may seem, the ability to create an already completed CompleteableFuture can come in handy as we'll see a little later.  
 Now let's take a look at how to create a `CompletableFuture` that represents an asynchronous task:
-```java CompletableFuture with Asynchronous Tasks
+```java
 private static ExecutorService service = Executors.newCachedThreadPool();
 
     @Test
@@ -74,10 +74,10 @@ private static ExecutorService service = Executors.newCachedThreadPool();
 ```
 In the first code sample we see an example of a `runAsync` task and the second sample is an example of `supplyAsync`.  This may be stating the obvious, but the decision to use supplyAsync vs runAsync is determined by whether the task is expected to return a value or not.  In both examples here we are supplying a custom `Executor` which is the asynchronous execution provider.  When it comes to the supplyAsync method I personally think it would have been more natural to use a [Callable](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Callable.html) and not a `Supplier`.  While both are [functional interfaces](https://docs.oracle.com/javase/8/docs/api/java/lang/FunctionalInterface.html), the `Callable` is associated more with asynchronous tasks and can throw checked exceptions while the `Supplier` does not (although with a small amount of code we can have [Suppliers that throw](https://github.com/bbejeck/Java-8/blob/master/src/main/java/bbejeck/function/throwing/ThrowingSupplier.java) checked exceptions).
 
-###Adding Listeners
+### Adding Listeners
 Now that we can create `CompletableFuture` objects to run asynchronous tasks, let's learn how to 'listen' when a task completes to perform follow up action(s).  It's important to mention here that when adding follow on `CompletionStage` objects, the previous task needs to complete *successfully* in order for the follow on task/stage to run.  There are methods to deal with failed tasks, but handling errors in the `CompletableFuture` chain are covered in a follow up post.
 
-```java Running A Mock Cleanup Task
+```java
    @Test
     public void test_then_run_async() throws Exception {
         Map<String,String> cache = new HashMap<>();
@@ -92,7 +92,7 @@ Now that we can create `CompletableFuture` objects to run asynchronous tasks, le
 ```
 Here in this example we are running a task that "cleans up" after the first `CompletableFuture` finishes sucessfully. While the previous example used a `Runnable` task to execute after the original task completed successfully, there really is no connection between the two.  We can also specify a follow on task that takes the result of the previous successful task directly:
 
-```java Accepting the result of previous task
+```java
 @Test
 public void test_accept_result() throws Exception {
         CompletableFuture<String> task = CompletableFuture.supplyAsync(simulatedTask(1, "add when done"), service);
@@ -106,13 +106,13 @@ public void test_accept_result() throws Exception {
 ```
 This is an example of *Accept* methods that take the result of the `CompletableFuture` and pass it to a `Consumer` object.  In Java 8 `Consumer` instances have no return value and are expected to work by side-effects, in this case adding the result to a list.
 
-###Combining And Composing Tasks
+### Combining And Composing Tasks
 In addition to adding listeners to run follow up tasks or accept the results of a succesful CompletableFuture, we can combine and/or compose tasks.   
 
-####Composing Tasks
+#### Composing Tasks
 Composing means taking the results of one successful CompletableFuture as input to another CompletableFuture via a [Function](https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html). 
 Here's an example of `CompletableFuture.thenComposeAsync`
-```java CompletableFuture.thenComposeAsync Example
+```java
 @Test
 public void test_then_compose() throws Exception {
 
@@ -138,10 +138,10 @@ In this example the first CompletionStage is providing a list of 10 multiples of
 
 
 
-####Combining Tasks
+#### Combining Tasks
 Combining is accomplished by taking 2 successful CompletionStages and having the results from both used as parameters to a [BiFunction](https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html) to produce another result.  Here's a very simple example to demonstrate taking results from combined CompletionStages.
 
-```java Combining CompletableFuture Example
+```java
 @Test
 public void test_then_combine_async() throws Exception {
  CompletableFuture<String> firstTask = CompletableFuture.supplyAsync(simulatedTask(3, "combine all"), service);
@@ -154,7 +154,7 @@ public void test_then_combine_async() throws Exception {
 }
 ```
 While the previous example showed combining two CompletionStages that could be asynchronous tasks, we could also combine an asynchronous task with an already completed CompletableFuture.  It is good way to combine a known value with a value that needs to be computed:
-```java Combining a Completed CompletableFuture with an asynchronous CompletableFuture
+```java
 @Test
 public void test_then_combine_with_one_supplied_value() throws Exception {
  CompletableFuture<String> asyncComputedValue = CompletableFuture.supplyAsync(simulatedTask(2, "calculated value"), service);
@@ -167,7 +167,7 @@ public void test_then_combine_with_one_supplied_value() throws Exception {
 }
 ``` 
 Finally here's an example of using the `CompletableFuture.runAfterbothAsync`
-```java CompletableFuture.runAfterBoth
+```java
 @Test
 public void test_run_after_both() throws Exception {
 
@@ -188,9 +188,9 @@ CompletableFuture<Void> finisher = run1.runAfterBothAsync(run2,() -> results. ad
 }
 ```
 
-###Listening For The First Finished Task
+### Listening For The First Finished Task
 In all of the previous examples final results required waiting for all CompletionStages to finish, but this doesn't always need to be the case.  We can get results from which ever task completes first.  Here's an example where the first completed result is accepted using a `Consumer`:
-```java CompletableFuture.acceptEitherAsync Example
+```java
 @Test
 public void test_accept_either_async_nested_finishes_first() throws Exception {
 
@@ -206,7 +206,7 @@ public void test_accept_either_async_nested_finishes_first() throws Exception {
 }
 ```
 And the analogous `CompletableFuture.runAfterEither` 
-```java CompletableFuture.runAfterEither Example
+```java
  @Test
   public void test_run_after_either() throws Exception {
 
@@ -227,10 +227,10 @@ And the analogous `CompletableFuture.runAfterEither`
  assertThat(results.get(1),is("SHOULD BE FIRST"));
  }
 ```
-###Multiple Combinations
+### Multiple Combinations
 Up to this point, all combining/composing examples have been two CompletableFuture objects only.  This was done intentionally in an effort to make the examples more clear. But we can nest an arbitrary number of CompletionStages together. Please note that the following example is for illustration purposes only!
 
-```java Multiple Combinations 
+```java
 
     Test
     public void test_several_stage_combinations() throws Exception {
@@ -262,11 +262,11 @@ Up to this point, all combining/composing examples have been two CompletableFutu
 ```
    It's important to note that ordering is not guarateed when combining CompletionStages.  In these unit tests, times were provided to the simulated tasks to ensure completion order.
 
-###Conclusion
+### Conclusion
 
    This wraps up the first part of using the CompletableFuture class.  In upcoming posts we'll cover error handling/recovery and forcing completion/cancellation.
 
-###Resources
+### Resources
 *   [CompletableFuture](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html)
 *   [CompletionStage](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletionStage.html)
 *   [Source Code](https://github.com/bbejeck/Java-8/blob/master/src/test/java/bbejeck/concurrent/CompletableFutureTest.java) for this post.

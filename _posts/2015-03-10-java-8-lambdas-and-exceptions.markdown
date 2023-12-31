@@ -23,7 +23,7 @@ description: How to work with Java 8 Functions and Functional interfaces that th
 ### Example of a Function with a Checked Exception
  Here's an example from a recent side-project using a `Function` to open a [directory in Lucene](http://lucene.apache.org/core/5_0_0/core/org/apache/lucene/store/FSDirectory.html).  As expected, opening a directory for writing/searching throws an `IOException`:
 
-``` java Create a Lucene Directory
+``` java
    private Function<Path, Directory> createDirectory =  path -> {
         try{
             return FSDirectory.open(path);
@@ -39,7 +39,7 @@ While this example works, it feels a bit awkward with the `try/catch` block.  It
 
 ### A Proposed Solution
 The solution is straight forward.  We are going to extend the `Function` interface and add a method called `throwsApply`. The `throwsApply` method  declares a throws clause of type `Exception`.  Then we override the `apply`method as a default method to handle the call to `throwsApply` in a try/catch block.  Any exceptions caught are re-thrown as `RuntimeExceptions`   
-```java Extending the Function Interface
+```java
 @FunctionalInterface
 public interface ThrowingFunction<T,R> extends Function<T,R> {
 
@@ -57,14 +57,14 @@ R applyThrows(T t) throws Exception;
 ```
 Here we are doing exactly what we did in the previous example, but from within a functional interface. 
 Now we can rework our previous example to this: (made even more concise by using a method handle)
-```java using Function that handles checked Exceptions
+```java
 private ThrowingFunction<Path, Directory> createDirectory = FSDirectory::open;
 ``` 
 
 ### Composing Functions that have Checked Exceptions
 Now we have another issue to tackle.   How do we compose two or more functions involving checked exceptions?  The solution is to create two new default methods. We create `andThen` and `compose` methods allowing us to compose `ThrowingFunction` objects into one.  (These methods have the same name as the default methods in the `Function` interface for consistency.) 
 
-```java New Default method andThen
+```java
 default <V> ThrowingFunction<T, V> andThen(ThrowingFunction<? super R, ? extends V> after){
         Objects.requireNonNull(after);
         try{

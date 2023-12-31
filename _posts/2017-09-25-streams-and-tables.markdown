@@ -128,7 +128,7 @@ but the log is smaller in size.
 We can see the impact of the compacted log in this image. Because we
 only care about the latest values, we can remove older key-value pairs
 (This section derived information from Jay Kreps in
-[*https://www.confluent.io/blog/introducing-kafka-streams-streamprocessing-made-simple/*](https://www.confluent.io/blog/introducing-kafka-streams-streamprocessing-made-simple/)).
+[https://www.confluent.io/blog/introducing-kafka-streams-streamprocessing-made-simple/](https://www.confluent.io/blog/introducing-kafka-streams-streamprocessing-made-simple/)).
 
 We’re already familiar with record or event streams from working with
 KStreams. For a change log or stream of updates, Kafka Streams provides
@@ -174,7 +174,7 @@ the KStream.
 
 Here’s our program printing stock ticker results to the console:
 
-```java  KTable and KStreams Printing to the Console
+```java
 
 KTable<String, StockTickerData> stockTickerTable = kStreamBuilder.table(STOCK_TICKER_TABLE_TOPIC, "ticker-store"); 
 
@@ -199,7 +199,7 @@ specify any Serdes to use. The same is true with both calls to the print
 method. We were able to do this because we registered our default Serdes
 in the configuration like this:
 
-``` java Serde Configuration
+``` java
 props.put(StreamsConfig.KEY_SERDE_CLASS_CONFIG,Serdes.String().getClass().getName());
 
 props.put(StreamsConfig.VALUE_SERDE_CLASS_CONFIG,StreamsSerdes.StockTickerSerde().getClass().getName());

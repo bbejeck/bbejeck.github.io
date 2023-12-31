@@ -29,7 +29,7 @@ tags:
 
 
 In the [last post](http://codingjunkie.net/java-8-dates-part1) we covered the `LocalDateTime`, `LocalDate` and the `LocalTime` classes.   As the name suggests, these classes give the date and or time for a given locality with no time-zone or offset from UTC/Greenwhich time.  Java 8 provides the [ZonedDateTime](http://docs.oracle.com/javase/8/docs/api/java/time/ZonedDateTime.html) class which provides date-times with a time-zone representation.  Creating a `ZonedDateTime` instance can be done several ways, but here we will demonstrate using two of the many static factory methods: 
-```java Creating a ZonedDateTime Instance
+```java
  //Uses the system clock using the default time-zone.
  ZonedDateTime zdt = ZonedDateTime.now();
  //Displays as 2014-03-28T21:52:09.122-04:00[America/New_York]
@@ -40,7 +40,7 @@ In the [last post](http://codingjunkie.net/java-8-dates-part1) we covered the `L
 ``` 
 
 Next we have the `OffsetDateTime` and the `OffsetTime` classes that represent date-time or time (respectively) with offsets from UTC/Greenwhich time.  Here we show creating `OffsetDateTime` and `OffsetTime` using some of the other available static factory methods: 
-```java Creating OffsetDateTime/OffsetTime Intances
+```java
 OffsetDateTime odt = OffsetDateTime.of(LocaDateTime.now(),ZoneOffset.of("-4"));
 //Displays as 2014-03-28T22:30:28.911-04:00
 
@@ -52,14 +52,14 @@ In the last example we see the use of the `Instant` class which we will introduc
 
 ### Clock
 The [Clock](http://docs.oracle.com/javase/8/docs/api/java/time/Clock.html) class gives us the ability to get the current date/time from the system clock with a specific time-zone. Although there are date-time classes that have a `now()` method returning the current date-time, the system clock uses the default time-zone. The `Clock` class allows us to get the system time with a given time-zone. We can then plug the `Clock` instance into other classes where we want to get the current time using a given time-zone.
-```java Creating Clock instances
+```java
 //Returns Clock with default time-zone
 Clock default = Clock.systemDefaultZone();
 //Clock with desired time-zone
 Clock clock = Clock.system(ZoneId.of("America/Chicago"));
 ```
 We can now re-work our previous example of creating an `OffsetTime` object using a `Clock` instance to set the desired time-zone:
-```java Using Clock with OffsetDateTime
+```java
 Clock clock = Clock.system(ZoneId.of("America/Los_Angeles"));
 ......
 public void someOperation(Clock clock){
@@ -69,14 +69,14 @@ public void someOperation(Clock clock){
 ```
 
 The `Clock` class also allows us to specify how it 'ticks', meaning we can have the time returned from the `Clock` instance ticking on whole minutes or seconds
-```java Setting the 'tick' level for a Clock
+```java'tick' level for a Clock
 Clock wholeMinuteClock = Clock.tickMinutes(ZoneId.of("Europe/Athens"));
 Clock wholeSecondClock = Clock.tickSeconds(ZonieId.of("Europe/Prauge"));
 ```
 
 ### Instant
 The [Instant](http://docs.oracle.com/javase/8/docs/api/java/time/Instant.html) class is used to capture the current 'instant' in time.  The `Instant` class is useful for obtaining event timestamps and also has nanosecond precision. 
-```java Getting an Instant
+```java
 //Record the current moment on the time-line from the system clock
 Instant now = Instant.now();
 //Record the current instant with the given Clock instance
@@ -86,7 +86,7 @@ The `Instant` class has several other methods for adjusting an `Instant` instanc
 
 ### Period
 The [Period](http://docs.oracle.com/javase/8/docs/api/java/time/Period.html) class represents an arbitrary amount of time in years, months, or days. `Period` objects can be particularly useful for adding/subtracting time to/from a date. For example:
-```java Using Period class to add to or subtract from dates
+```java
     @Test
     public void test_add_days(){
         LocalDateTime today = LocalDateTime.parse("2014-03-12T19:36:33");
@@ -105,7 +105,7 @@ The [Period](http://docs.oracle.com/javase/8/docs/api/java/time/Period.html) cla
 ```
 
 The `Period` class also offers a static method `Period.between` that is great for determining elapsed time between dates:
-```java Getting time between dates with Period class
+```java
     @Test
     public void test_period_between_dates(){
         LocalDate twins = LocalDate.parse("2003-11-18");
@@ -121,7 +121,7 @@ While the `Period.between` method requires types of `LocalDate`,  the date-time 
 
 ### Duration
 The [Duration](http://docs.oracle.com/javase/8/docs/api/java/time/Duration.html) class represents arbitrary amounts of time in hours, minutes or seconds.  The useage pattern for `Duration` is similar to that of the `Period` class. Here are examples of adjusting time objects using the `Duration` class:
-```java using Duration to add/subtract time
+```java
     @Test
     public void test_add_time(){
         Duration oneHourThirtyMinutes = Duration.ofHours(1).plusMinutes(30);
@@ -146,7 +146,7 @@ The [Duration](http://docs.oracle.com/javase/8/docs/api/java/time/Duration.html)
     }
 ```  
 The `Duration` class also has a `between` method for determing the amount of time (hours based) between time objects:
-```java using Duration to determine difference between time objects
+```java
     @Test
     public void test_time_between(){
         LocalTime earlier = LocalTime.parse("09:30:25");
