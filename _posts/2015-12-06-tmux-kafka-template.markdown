@@ -24,7 +24,7 @@ In this post we are going to assume the reader is alreay familiar with zookeeper
 Before we start it's helpful to know how we can install tmux.  Tmux can be [downloaded](https://github.com/tmux/tmux/releases/download/2.1/tmux-2.1.tar.gz) from the main site.  In my case I'm using a mac so I used homebrew - `brew install tmux`.
 
 
-###Scripting Tmux
+### Scripting Tmux
 I wanted a script to create the following workspace:
 
 1.  Zookeeper running in it's own pane.
@@ -72,16 +72,16 @@ tmux attach -t kafka-work
 ```
 While in depth coverage of tmux is beyond the scope of this post, it will be helpful to give a brief description of the tmux commands in the script.
 
-####Splitting Panes
+#### Splitting Panes
 There are serveral `split-window` commands in the script and they do what you'd expect, split the window either horizontally or vertically.  What's not so obvious is that `split-window -v` splits the window *horizontally* and `split-window -h` splits *vertically*.  Tmux sees the resulting panes differently than we humans.  When the window is divided horizontally, two panes stacked on top of each other *vertically* and for vertical splits, panes are horizontally adjacent to each other.  There is one final note about splitting a window into panes that needs mentioning.  When the `split-window` command is issued the cursor ends up in the most recently created pane.  This is important to keep in mind if you are going to issue additional commands but don't want them executed in the pane just created.
 
-####Pane Numbers
+#### Pane Numbers
 By default, tmux numbers the panes in a given window starting at 0.  If the initial window is split in two panes horizontally, the top pane is still 0, and the bottom half is now number 1.  While this seems very natural, when additional panes are split in different areas, the numbering may seem confusing. Just keep in mind panes are numbered in order of creation.
 
-####Sending Commands to Panes
+#### Sending Commands to Panes
 Finally we have the `send-keys -t N <some command>` commands in the script.  This is so we can target a particular pane with the given command.  In our case we want 4 of our panes to be in the base kakfa install directory so we issue the `tmux send-keys -t N "cd $KAFKA_DIR"  C-m` command.  There are 4 such commands, each one with a specific target pane 1-4. We want to start zookeeper in pane 1 so the `tmux send-keys -t 1 "$START_ZK  $ZK_PROPS" C-m ` command is used.  To start the kafka server we issue a very similar command, except pane 2 is the target.
 
-###Final Tmux - Kafka Results
+### Final Tmux - Kafka Results
 Here's a screen shot of the final results of running the the kafka-tmux script.  The numbers in the panes are for illustration purposes only.
 <img class="center" src="{{ site.media_url }}/images/kafka-tmux.png" /> 
 
