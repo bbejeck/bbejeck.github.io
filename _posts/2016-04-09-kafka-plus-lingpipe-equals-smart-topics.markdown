@@ -38,7 +38,7 @@ The first step is [application registration](https://apps.twitter.com/app/new). 
 #### Coding the Hosebird Client
 The code for running the Hosebird client is really a matter of providing the generated keys for authentication, search terms and other basic parameters to the ClientBuilder API:
 
-```java 
+```java
 
 private Client getTwitterClient(Properties props, 
                                BlockingQueue<String> messageQueue) {
@@ -70,7 +70,7 @@ private Client getTwitterClient(Properties props,
 
 ### Publishing Tweets to Kafka
 The next step is to start streaming the twitter data and publishing individual tweets to a [KafkaProducer](https://kafka.apache.org/090/javadoc/org/apache/kafka/clients/producer/KafkaProducer.html).  The search terms used are Real Madrid,#realmadrid,@lemondefr,Le Monde.  These terms proved to have a nice mix of all three of the target languages.  
-```java 
+```java
    //Details left out for clarity
   try {
     BlockingQueue<String> twitterStreamQueue = new LinkedBlockingQueue<>();

@@ -34,7 +34,7 @@ I wanted a script to create the following workspace:
 5.  Finally a pane to run my kafka-processor code or perform ad-hoc tasks.
 
 I wanted to have zookeeper and kafka start automatically, the message producer and consumer I would be stopping and starting as needed. But I would like each respective pane to cd to the base kafka install directory.  Once I found the relevant tmux commands it was simple to set up.  Here's the script:
-```bash Kafka Tmux Script
+```bash
 #!/bin/sh
 
 KAFKA_DIR=/usr/local/kafka_2.11-0.9.0.0-SNAPSHOT

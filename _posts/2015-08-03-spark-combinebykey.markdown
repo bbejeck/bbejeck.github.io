@@ -30,7 +30,7 @@ The `combineByKey` call is just such an optimization.  When using `combineByKey`
 
 ### CombineByKey Example
 For our example lets take a look at calculating an average score.  Calculating an average is a litte trickier compared to doing a count for the simple fact that counting is [associative](https://en.wikipedia.org/wiki/Associative_property) and [commutative](https://en.wikipedia.org/wiki/Commutative_property), we just sum all values for each partiton and sum the partition values.  But with averages, it's not that simple, an average of averages is not the same as taking an average across all numbers.  But we can collect the total number scores and total score per partition then divide the total overall score by the number of scores.  Here's our example:
-```scala CombineByKey for Averaging
+```scala
   //type alias for tuples, increases readablity
 type ScoreCollector = (Int, Double)
 type PersonScores = (String, (Int, Double))
@@ -77,7 +77,7 @@ Let's describe what's going on in the example above:
 
 #### Final Results
 After running our spark job, the results look like this:
-```text Results
+```text
 Average Scores using CombingByKey
 Fred's average score : 91.33333333333333
 Wilma's average score : 95.33333333333333

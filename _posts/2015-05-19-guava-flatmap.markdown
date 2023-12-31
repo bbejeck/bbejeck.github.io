@@ -22,7 +22,7 @@ description: Using a flatMap function in Guava.
 This is a short post about a method I recently discovered in Guava.  
 ### The Issue
 I had a situation at work where I was working with objects structured something like this:
-```java Sample Object Structures
+```java
 public class Outer {
     String outerId;
     List<Inner> innerList;
@@ -44,7 +44,7 @@ My task was flatten a list `Outer` objects (along with the list of `Inner` objec
 <!-- more --> 
 ### The First Solution
 Instead I turn to the [FluentIterable](http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/collect/FluentIterable.html) class from [Guava](https://code.google.com/p/guava-libraries/).  My first instinct is to go with the [FluentIterable.transform](http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/collect/FluentIterable.html#transform\(com.google.common.base.Function\)) method (which is essentially a map function):
-```java An Iterable of Iterables
+```java
 List<Outer> originalList = getListOfObjects();
 
 Function<Outer,List<Merged>> flattenFunction //Details left out for clarity
@@ -55,7 +55,7 @@ Iterable<List<Merged>> mergedObjects = FluentIterable.from(originalList).tranfor
 But I really want a single collection of `Merged` objects, not an iterable of lists! The missing ingredient here is a flatMap function.  Since I'm not using Scala, Clojure or Java 8, I feel that I'm out of luck.
 ### A Better Solution
 I decide to take a closer look at the `FluentIterable` class and I discover the [FluentIterable.transformAndConcat](http://docs.guava-libraries.googlecode.com/git-history/release/javadoc/com/google/common/collect/FluentIterable.html#transformAndConcat\(com.google.common.base.Function\)) method. The transformAndConcat method applies a function to each element of the fluent iterable and appends the results into a *single* iterable instance.  I have my flatMap function in Guava!  Now my solution looks like this:
-```java FlatMap Solution in Guava
+```java
 
 List<Outer> originalList = getListOfObjects();
 

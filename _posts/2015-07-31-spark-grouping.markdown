@@ -29,7 +29,7 @@ The aggregateByKey function requires 3 parameters:
 
 As an example let's collect unique values per key. Think of this as an alternative of calling `someRDD.groupByKey().distinct()`
 Here's the code:
-```scala AggegateByKey Unique example
+```scala
     val keysWithValuesList = Array("foo=A", "foo=A", "foo=A", "foo=A", "foo=B", "bar=C", "bar=D", "bar=D")
     val data = sc.parallelize(keysWithValuesList)
     //Create key value pairs
@@ -46,7 +46,7 @@ You will notice we are using *mutable* hashsets in our example.  The reason for 
 
 For our second example, we'll do a sum of values by key, which should help with performance as less data will be shuffled accross the network.  We provide 3 different parameters to our `aggregateByKey` function.  This time we want to count how many values we have by key regardless of duplicates.
 
-```scala AggregateByKey Summing example
+```scala
     val keysWithValuesList = Array("foo=A", "foo=A", "foo=A", "foo=A", "foo=B", "bar=C", "bar=D", "bar=D")
     val data = sc.parallelize(keysWithValuesList)
     //Create key value pairs

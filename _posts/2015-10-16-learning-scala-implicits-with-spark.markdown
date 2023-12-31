@@ -25,7 +25,7 @@ A while back I wrote two posts on avoiding the use of the `groupBy` function in 
 <!--more-->
 ### Scala Implicits in Brief
 While a full explanation of Scala's implicits is beyond the scope of this post, here's a quick description.  When the Scala compiler finds a variable or expression of the wrong type, it will look for an `implicit` function, expression or class to provide the correct type.  The `implicit` function (or class) needs to be in the current scope for the compiler to do it's work.  This is typically accomplished by importing a Scala object that contains the implicit definition(s).  In this case the `GroupingRDDFunctions` class is wrapped in the `GroupingRDDUtils` object.  Here's the class declaration:
-```scala GroupingRDDFunctions Declaration
+```scala
 object GroupingRDDUtils {
   implicit class GroupingRDDFunctions[K: ClassTag, V: ClassTag](self: RDD[(K, V)]) extends Logging with Serializable {
 //... details left out for clarity
@@ -33,7 +33,7 @@ object GroupingRDDUtils {
 }
 ```
 To use GroupingRDDFunctions just use the following import statement:
-```scala Import Statement
+```scala
 import bbejeck.implicits.GroupingRDDUtils._
 ```
 ### Provided functionality
@@ -47,7 +47,7 @@ The methods defined on `GroupingRDDFunctions` are:
  5.   averageByKey
     
 Here's some examples of using `GroupingRDDFunctions`:
-```scala Examples
+```scala
 //To do a grouping of unique values by key using aggregateByKey
 val initialSet = mutable.HashSet.empty[String]
 val addToSet = (s: mutable.HashSet[String], v: String) => s += v
@@ -70,7 +70,7 @@ There is really nothing special happening here.  We are simply wrapping an RDD i
 
 ### Implicit Parameter Conversion
 As another example of implicit useage let's take a look at the `averageByKey` function.  In the code below, we compute the average by key by applying the `averagingFunction` to the results returned from the `sumWithTotal` method.  But if we look closely, our keys and values are generics of 'K' and 'V', but all of these functions work on doubles.
-```scala Implicit Function Example
+```scala
 
 implicit def intToDouble(num: V): Double = {
         num match {

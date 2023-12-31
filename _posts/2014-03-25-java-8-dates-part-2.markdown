@@ -69,7 +69,7 @@ public void someOperation(Clock clock){
 ```
 
 The `Clock` class also allows us to specify how it 'ticks', meaning we can have the time returned from the `Clock` instance ticking on whole minutes or seconds
-```java'tick' level for a Clock
+```java
 Clock wholeMinuteClock = Clock.tickMinutes(ZoneId.of("Europe/Athens"));
 Clock wholeSecondClock = Clock.tickSeconds(ZonieId.of("Europe/Prauge"));
 ```

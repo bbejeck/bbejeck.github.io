@@ -25,7 +25,7 @@ A short time ago, I started a side project to learn the latest version of [Antlr
   
 ### Introduction and Examples
 The `LuceneSqlParser` supports a subset of standard sql.  Here are some examples:
-```sql Sample sql query handled
+```sql
 Select last_name from '/path/to/index/' where first_name='Foo' and age <=30 and city='Boston' limit 25
 
 Select * from 'path/index/' where age in (31, 30, 50)

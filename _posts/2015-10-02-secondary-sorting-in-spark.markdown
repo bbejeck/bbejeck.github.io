@@ -27,12 +27,12 @@ We will use the RDD API to implement secondary sorting.  While this could be eas
 ### Creating the Key-Value Pairs
 The data is downloaded in CSV format and will be converted into key-value format. The crucial part of secondary sorting is which value(s) to include in the key to enable the additional ordering.  The 'natural' key is the airlineId and arrivalAirportId and arrivalyDelay are the values we'll include in the key.  This is represented by the `FlightKey` case class:
 
-```scala FlightKey class
+```scala
 case class FlightKey(airLineId: String, arrivalAirPortId: Int, arrivalDelay: Double)
 ```
 
 Our first attempt at creating our key-value pairs looks like this:
-```scala Creating Key-Value Pairs with keyBy function
+```scala
   val rawDataArray = sc.textFile(args(0)).map(line => line.split(","))
   //Using keyBy but retains entire array in value
   val keyedByData = rawDataArray.keyBy(arr => createKey(arr))
@@ -43,7 +43,7 @@ Our first attempt at creating our key-value pairs looks like this:
   }
 ```
 This exmaple is simple example of using the `keyBy` function.  The `keyBy` function takes a function that returns a key of a given type, `FlightKey` in this case.  We have one issue with this approach.  Part of the data we want to anaylize is in the key *and* remains in the orignial array of values.  While the individual values themselves are not very large, when considering the volume of data we are working with, we'll want to make sure we are not transferring around duplicated data.  Also, the final data we will analyze only contains 7 fields.  There are 24 fields in the original data. We will drop those unused fields as well.  Here's our second pass at creating our key-value pairs:
-```scala Create Key-Value Pairs using map
+```scala
  val rawDataArray = sc.textFile(args(0)).map(line => line.split(","))
  val airlineData = rawDataArray.map(arr => createKeyValueTuple(arr))
 
@@ -70,7 +70,7 @@ Now we need to consider how to partition and sort our data.  There are two point
 
 #### Partitioner Code
 The partitioner code is simple.  We extend the [Partitioner](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.Partitioner) class like so:
-```scala Custom Partitioner
+```scala
 class AirlineFlightPartitioner(partitions: Int) extends Partitioner {
     require(partitions >= 0, s"Number of partitions ($partitions) cannot be negative.")
 
@@ -86,7 +86,7 @@ The `AirlineFlightPartitioner` class is simple, and we can see that partitions a
 
 #### Sorting Code
 Now we need to define how the data will be sorted once we have it located in the correct partitions.  To achieve sorting we create a companion object for `FlightKey` and define an implicit [Ordering](http://www.scala-lang.org/api/2.10.4/#scala.math.Ordering) method
-```scala FlightKey Sorting
+```scala
 object FlightKey {
     implicit def orderingByIdAirportIdDelay[A <: FlightKey] : Ordering[A] = {
        Ordering.by(fk => (fk.airLineId, fk.arrivalAirPortId, fk.arrivalDelay * -1))
@@ -105,7 +105,7 @@ Now it's time to put our partitioning and sorting into action.  This is achieved
 The partitioner we'll use is the `AirlineFlightPartitioner` described above in the "Partitioner" section.
 
 Now with all the pieces in order we do the following to execute our secodary sort:
-```scala Executing the Secondary Sort
+```scala
 object SecondarySort extends SparkJob {
 
   def runSecondarySortExample(args: Array[String]): Unit = {
@@ -125,7 +125,7 @@ After all the buildup in this post, we end up with a somewhat anti-climatic one-
 
 ### Results
 Running the spark job yields these results:
-```text Secondary Sort Results
+```text
 (FlightKey("AA",10397,-2.0),List(2015-01-01, 11298, 30194, 30397))
 (FlightKey("AA",11278,-2.0),List(2015-01-01, 11298, 30194, 30852))
 (FlightKey("AA",11278,-14.0),List(2015-01-01, 12892, 32575, 30852))
