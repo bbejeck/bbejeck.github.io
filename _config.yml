@@ -19,16 +19,19 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Random Thoughts on Coding
-email: bbejeck@gmail.com 
-description: >- # this means to ignore newlines until "baseurl:"
-  My name is Bill Bejeck. I am a Software Developer, Husband and a Dad of 3. 
-  I like to run and I'm addicted to coffee. 
-  My personal hero is the Black Knight from Monty Python and the Holy Grail.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: " " # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: bbejeck 
-github_username: bbejeck 
-paginate: 5
+description: "A coding blog about whatever comes to mind at the moment"
+author:
+  name: "Bill Bejeck"
+  email: "bbejeck@gmail.com"
+  url: "https://bbejeck.github.io/"
+
+baseurl: /
+
+source: .
+destination: ./_site
+permalink: /:title
+paginate: 8
+paginate_path: /page/:num/
 
 markdown: kramdown
 kramdown:
@@ -37,29 +40,20 @@ kramdown:
         block:
             line_numbers: true
 
-# Build settings
-#theme: minima
-theme: jekyll-theme-hacker
-plugins:
-  - jekyll-feed
-  - jekyll-paginate
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+future: true
+plugins:
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-sitemap
+
+# Custom variables
+owner : "Bill Bejeck"
+year : "2024"
