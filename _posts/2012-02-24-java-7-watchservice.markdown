@@ -14,7 +14,7 @@ tags:
 - Java 7
 ---
 
-<img class="left" src="{{ site.media_url }}/images/Java_Logo1-150x150.png" /> Of all the new features in Java 7, one of the more interesting is the WatchService, adding the capability to watch a directory for changes.  The WatchService maps directly to the native file event notification mechanism, if available.  If a native event notification mechanism is not available, then the default implementation will use polling.  As a result, the responsiveness, ordering of events and details available are implementation specific.
+<img class="left" src="../assets/images/Java_Logo1-150x150.png" /> Of all the new features in Java 7, one of the more interesting is the WatchService, adding the capability to watch a directory for changes.  The WatchService maps directly to the native file event notification mechanism, if available.  If a native event notification mechanism is not available, then the default implementation will use polling.  As a result, the responsiveness, ordering of events and details available are implementation specific.
 <!--more-->
 
 ### Watching A Directory

@@ -12,7 +12,7 @@ tags:
 - ssh
 ---
 
-<img class="left" src="{{ site.media_url }}/images/black-drive-backup-256x256-150x150.png" /> Backing up your data is an important task.  As we all know, it's not a matter of if you are going to experience a crash or failure, but when.  Blogs are no exception.  I wanted to take a break from my regular style of posts to share my simple backup script.  While I'm know there ar more sophisticated approaches, I really enjoy automating tasks, like remote backups, with bash scripts. My approach is simple. I create a gzipped tar of my WordPress install directory, and then run a [mysqldump](http://dev.mysql.com/doc/refman/5.1/en/mysqldump.html) command.  It's all done locally from my MacBook Pro via ssh and the results end up in my Dropbox directory.  
+<img class="left" src="../assets/images/black-drive-backup-256x256-150x150.png" /> Backing up your data is an important task.  As we all know, it's not a matter of if you are going to experience a crash or failure, but when.  Blogs are no exception.  I wanted to take a break from my regular style of posts to share my simple backup script.  While I'm know there ar more sophisticated approaches, I really enjoy automating tasks, like remote backups, with bash scripts. My approach is simple. I create a gzipped tar of my WordPress install directory, and then run a [mysqldump](http://dev.mysql.com/doc/refman/5.1/en/mysqldump.html) command.  It's all done locally from my MacBook Pro via ssh and the results end up in my Dropbox directory.  
 <!--more-->
 
 ### Setting up Password-less SSH

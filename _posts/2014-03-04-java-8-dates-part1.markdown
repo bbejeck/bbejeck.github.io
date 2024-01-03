@@ -13,7 +13,7 @@ tags:
 - Java 8
 ---
 
-<img class="left" src="{{ site.media_url }}/images/javaEight.jpeg" /> With the final release of Java 8 around the corner, one of the new features I'm excited about is the new [Date](http://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html) API, a result of the work on [JSR 310](https://jcp.org/en/jsr/detail?id=310).  While Lambda expressions are certainly the big draw of Java 8, having a better way to work with dates is a decidedly welcome addition.  This is a quick post (part 1 of 2 or 3) showing some highlights of the new Date functionality, this time mostly around the [LocalDate](http://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html) class. 
+<img class="left" src="../assets/images/javaEight.jpeg" /> With the final release of Java 8 around the corner, one of the new features I'm excited about is the new [Date](http://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html) API, a result of the work on [JSR 310](https://jcp.org/en/jsr/detail?id=310).  While Lambda expressions are certainly the big draw of Java 8, having a better way to work with dates is a decidedly welcome addition.  This is a quick post (part 1 of 2 or 3) showing some highlights of the new Date functionality, this time mostly around the [LocalDate](http://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html) class. 
 
 <!--more-->
 ### Creating New Date Objects

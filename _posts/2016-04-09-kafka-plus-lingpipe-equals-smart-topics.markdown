@@ -184,7 +184,7 @@ While this code is simple, a description of what's going is in order:
 
 #### Results
 Here is a screen-shot of the results.  This is a tmux session with the top window is reading from the Spanish topic, the middle is French and the bottom is English:
-<img src="{{ site.media_url }}/images/classificationResults.jpg" />
+<img src="../assets/images/classificationResults.jpg" />
 
 While the results are not 100% accurate, for the amount of training done it's not all that bad.  Notice that the Real Madrid results were concentrated the most in the English and Spanish topics, while the Le Monde twitter results showed up exactly where expected.
 

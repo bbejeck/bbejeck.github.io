@@ -83,7 +83,7 @@ Finally we have the `send-keys -t N <some command>` commands in the script.  Thi
 
 ### Final Tmux - Kafka Results
 Here's a screen shot of the final results of running the the kafka-tmux script.  The numbers in the panes are for illustration purposes only.
-<img class="center" src="{{ site.media_url }}/images/kafka-tmux.png" /> 
+<img class="center" src="../assets/images/kafka-tmux.png" /> 
 
 ### Conclusion
 This has been a quick tour of tmux.  It is woefully incomplete and only scratches the surface on what we can do with tmux and how it can be configured. I just wanted to share my script in case someone might find it helpful.   Thanks for your time.

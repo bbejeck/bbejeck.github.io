@@ -14,7 +14,7 @@ tags:
 - UI
 ---
 
-<img class="left" src="{{ site.media_url }}/images/android_logo_no_words.gif" /> This is the first post in a 3 part series that is going to cover implementing Drag and Drop in an Android application.
+<img class="left" src="../assets/images/android_logo_no_words.gif" /> This is the first post in a 3 part series that is going to cover implementing Drag and Drop in an Android application.
 (I am currently using version 4.0 of the sdk, but I originally wrote the code in this series with the 3.1 version.)
 
 

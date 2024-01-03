@@ -32,7 +32,7 @@ NOTE: (Save 37% off [*Kafka Streams in Action*](https://www.manning.com/books/ka
 Let’s start by building a processing graph with a Kafka Streams program.
 Here’s the requirements graph for the project:
 
-<img src="{{ site.media_url }}/images/ks/image1.jpg"/>
+<img src="../assets/images/image1.jpg"/>
 
 Figure 1 Here’s the view of our business requirements cast in a graph.
 Vertexes are processing nodes that handle data and the edges show the
@@ -96,7 +96,7 @@ appears as any other combination of consumers and producers. There could
 be any other number of applications reading from the same topic in
 conjunction with your streaming program.
 
-<img src="{{ site.media_url }}/images/ks/image2.jpg"/>
+<img src="../assets/images/image2.jpg"/>
 
 Figure 2 Here’s the source node, but instead of using the vague term
 "source", we’ll call this what it is - a Kafka topic.
@@ -115,7 +115,7 @@ the parent processor for any other processors you define. Our new parent
 processor provides the masked credit-card numbers to any downstream
 processors with Purchase objects.
 
-<img src="{{ site.media_url }}/images/ks/image3.jpg"/>
+<img src="../assets/images/image3.jpg"/>
 
 Figure 3 This is the masking processor, and it’s a child of the main
 source node. It receives all the raw sales transactions and emits new
@@ -156,7 +156,7 @@ parent processor.
 
 ***The Second Processor - Purchase Patterns***
 
-<img src="{{ site.media_url }}/images/ks/image4.jpg"/>
+<img src="../assets/images/image4.jpg"/>
 
 Figure 4 Here’s the purchase patterns processor. It’s responsible for
 taking Purchase objects and converting them into Purchase Pattern
@@ -185,7 +185,7 @@ well as purchasing trends in a given area.
 
 ***The Third Processor - Customer Rewards***
 
-<img src="{{ site.media_url }}/images/ks/image5.jpg"/>
+<img src="../assets/images/image5.jpg"/>
 
 Figure 5 Here’s the customer rewards processor responsible for
 transforming Purchase objects into a RewardAccumulator object containing
@@ -206,7 +206,7 @@ would determine any rewards for Zmart customers.
 
 ***Fourth Processor - Writing Purchase Records***
 
-<img src="{{ site.media_url }}/images/ks/image6.jpg"/>
+<img src="../assets/images/image6.jpg"/>
 
 Figure 6 This is the final processor in the topology. This processor is
 responsible for writing out the entire Purchase object to another Kafka

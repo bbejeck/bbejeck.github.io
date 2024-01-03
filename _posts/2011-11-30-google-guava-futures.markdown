@@ -15,7 +15,7 @@ tags:
 - java
 ---
 
-<img class="left" src="{{ site.media_url }}/images/toolbox.jpg" /> This post is a continuation of my series on Google Guava, this time covering Futures.   The Futures class is a collection of static utility methods for working with the Future/ListenableFuture interface.  A Future is a handle to an asynchronous task, either a Runnable or Callable, that was submitted to an ExecutorService.  The Future interface provides methods for: getting the results of a task, checking if a task is done, or canceling a task.  The ListenableFuture interface extends the Future interface and adds the ability to set a completion listener to run once a task is finished. To create a ListenableFuture you first need to decorate an ExecutorService instance like so:
+<img class="left" src="../assets/images/toolbox.jpg" /> This post is a continuation of my series on Google Guava, this time covering Futures.   The Futures class is a collection of static utility methods for working with the Future/ListenableFuture interface.  A Future is a handle to an asynchronous task, either a Runnable or Callable, that was submitted to an ExecutorService.  The Future interface provides methods for: getting the results of a task, checking if a task is done, or canceling a task.  The ListenableFuture interface extends the Future interface and adds the ability to set a completion listener to run once a task is finished. To create a ListenableFuture you first need to decorate an ExecutorService instance like so:
 <!--more-->
     
     

@@ -29,7 +29,7 @@ NOTE: (Save 37% off [*Kafka Streams in Action*](https://www.manning.com/books/ka
 
 Figure 1 Graph or Topology of our Kafka Streams application, the
 'Yelling' App
-<img src="{{ site.media_url }}/images/ks/figure_1.jpg"/>
+<img src="../assets/images/figure_1.jpg"/>
 
 
 As you can see from the image, we’re building a simple processing graph.
@@ -157,7 +157,7 @@ highlighted to make it easier to follow how the code relates to the
 processing topology.
 
 Figure 2 Creating the Source Node of the 'Yelling' App
-<img src="{{ site.media_url }}/images/ks/figure_2.jpg"/>
+<img src="../assets/images/figure_2.jpg"/>
 
 
 ```java
@@ -173,7 +173,7 @@ In this case, it’s aptly named "src-topic" and the KStream instance
 topic.
 
 Figure 3 Adding the UpperCase Processor to the 'Yelling' App
-<img src="{{ site.media_url }}/images/ks/figure_3.jpg"/>
+<img src="../assets/images/figure_3.jpg"/>
 
 
 ```java
@@ -210,7 +210,7 @@ methods expect types that are single method interfaces, and you can
 easily use Java 8 lambdas.
 
 Figure 4 Adding Processor for Writing 'Yelling' App Results
-<img src="{{ site.media_url }}/images/ks/figure_4.jpg"/>
+<img src="../assets/images/figure_4.jpg"/>
 Figure 4 Adding Processor for Writing 'Yelling' App Results
 
 ```java

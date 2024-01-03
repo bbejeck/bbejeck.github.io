@@ -14,7 +14,7 @@ tags:
 - java
 ---
 
-<img class="left" src="{{ site.media_url }}/images/toolbox.jpg" /> The Google Guava project is a collection of libraries that every Java developer should become familiar with.   The Guava libraries cover I/O, collections, string manipulation, and concurrency just to name a few.  In this post I am going to cover the Monitor class.  Monitor is a synchronization construct that can be used anywhere you would use a ReentrantLock. Only one thread can occupy a monitor at any time.  The Monitor class has operations of _entering_ and _leaving_  which are semantically the same as the _lock_ and _unlock_ operations in ReentrantLock.  Additionally, the Monitor supports waiting on _boolean_ conditions. 
+<img class="left" src="../assets/images/toolbox.jpg" /> The Google Guava project is a collection of libraries that every Java developer should become familiar with.   The Guava libraries cover I/O, collections, string manipulation, and concurrency just to name a few.  In this post I am going to cover the Monitor class.  Monitor is a synchronization construct that can be used anywhere you would use a ReentrantLock. Only one thread can occupy a monitor at any time.  The Monitor class has operations of _entering_ and _leaving_  which are semantically the same as the _lock_ and _unlock_ operations in ReentrantLock.  Additionally, the Monitor supports waiting on _boolean_ conditions. 
 <!--more-->
 
 ### Comparing Monitor and ReentrantLock

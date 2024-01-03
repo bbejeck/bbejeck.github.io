@@ -50,7 +50,7 @@ example.
 
 To demonstrate a record or event stream, a series of stock price quotes for example, we can use the image below:
 
-<img src="{{ site.media_url }}/images/ks/kst_figure_1.png"/>
+<img src="../assets/images/kst_figure_1.png"/>
 
 We can see from this picture that each stock price is a discrete event
 and they aren’t related to each other. Even if the same company accounts
@@ -60,7 +60,7 @@ This view of events is how the KStream works. The KStream is a stream of
 records. We can show how this concept ties into database tables. In the
 next image, we present a simple stock quote table:
 
-<img src="{{ site.media_url }}/images/ks/kst_figure_2.jpg"/>
+<img src="../assets/images/kst_figure_2.jpg"/>
 
 This simple database table represents stock prices for
 companies. There’s a key column, and other columns contain the values.
@@ -72,7 +72,7 @@ stands on its own, the stream represents inserts into a table. In the
 following image, we’ve combined the two concepts to illustrate this
 point:
 
-<img src="{{ site.media_url }}/images/ks/kst_figure_3.jpg"/>
+<img src="../assets/images/kst_figure_3.jpg"/>
 
 Here we see how a stream of individual events compared to
 inserts in a database table. We can flip this around and look at how we
@@ -93,7 +93,7 @@ instead of a stream of records we have a stream of updates. In this
 case, no record stands alone, and we can consider this a stream of
 updates or a change log. The image below demonstrates this concept:
 
-<img src="{{ site.media_url }}/images/ks/kst_figure_4.jpg"/>
+<img src="../assets/images/kst_figure_4.jpg"/>
 
 No record pictured above stands on its own. With a record stream, we
 would have a total count of four events. In the case of updates or a
@@ -118,7 +118,7 @@ arriving records (per key). The good news is that we have an approach
 that works – log compaction. Let’s take another look at the image for
 review:
 
-<img src="{{ site.media_url }}/images/ks/kst_figure_5.jpg"/>
+<img src="../assets/images/kst_figure_5.jpg"/>
 
 On the left is a log before compaction. You’ll notice
 duplicate keys with different values, which are updates. On the right is
@@ -149,7 +149,7 @@ A KStream and KTable instance reads the records and writes them to the
 console via the print method. The following image shows the results of
 running the application:
 
-<img src="{{ site.media_url }}/images/ks/kst_figure_6.jpg"/>
+<img src="../assets/images/kst_figure_6.jpg"/>
 
 As you can see from the results, the KStream printed all nine records
 out. We expect the KStream to behave this way as it views each record as

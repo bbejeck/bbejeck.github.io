@@ -14,7 +14,7 @@ tags:
 - UI
 ---
 
-<img class="left" src="{{ site.media_url }}/images/android_logo_no_words.gif" /> This is the final post in a 3 part series on implementing Drag and Drop in an Android application.  The [first post](http://codingjunkie.net/android-drag-and-drop-part1/) covered hiding an ImageView when starting a drag.  The [second post](http://codingjunkie.net/android-drag-and-drop-part-2/) covered handling drops outside an intended drop zone. This final installment covers moving a game piece as a result of a valid move or having that game piece “snap back” to it's original postion when an invalid move is made.
+<img class="left" src="../assets/images/android_logo_no_words.gif" /> This is the final post in a 3 part series on implementing Drag and Drop in an Android application.  The [first post](http://codingjunkie.net/android-drag-and-drop-part1/) covered hiding an ImageView when starting a drag.  The [second post](http://codingjunkie.net/android-drag-and-drop-part-2/) covered handling drops outside an intended drop zone. This final installment covers moving a game piece as a result of a valid move or having that game piece “snap back” to it's original postion when an invalid move is made.
 <!--more-->
 
 ### Application Background Information

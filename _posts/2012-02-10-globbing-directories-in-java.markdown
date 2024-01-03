@@ -15,7 +15,7 @@ tags:
 - Java 7
 ---
 
-<img class="left" src="{{ site.media_url }}/images/Java_Logo1.png" /> Continuing with my series on the Java 7 java.nio.file package, this time covering the DirectoryStream interface.  In this post we are going implement our own DirectoryStream that will iterate over the files in an entire directory tree, not just a single directory.  Our goal in the end is to have something that works similar to Ruby's [Dir.glob("**")](http://ruby-doc.org/core-1.9.3/Dir.html#method-c-glob) method. 
+<img class="left" src="../assets/images/Java_Logo1.png" /> Continuing with my series on the Java 7 java.nio.file package, this time covering the DirectoryStream interface.  In this post we are going implement our own DirectoryStream that will iterate over the files in an entire directory tree, not just a single directory.  Our goal in the end is to have something that works similar to Ruby's [Dir.glob("**")](http://ruby-doc.org/core-1.9.3/Dir.html#method-c-glob) method. 
 <!--more-->
 
 ### Requirements

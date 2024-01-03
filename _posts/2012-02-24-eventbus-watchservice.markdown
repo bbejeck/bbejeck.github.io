@@ -13,7 +13,7 @@ tags:
 - Java 7
 ---
 
-<img class="left" src="{{ site.media_url }}/images/Java_Logo1-150x150.png" /> This post is going to cover using the Guava EventBus to publish changes to a directory or sub-directories detected by the Java 7 WatchService.  The Guava EventBus is a great way to add publish/subscribe communication to an application.  The WatchService, new in the Java 7 java.nio.file package, is used to monitor a directory for changes. Since the EventBus and WatchService have been covered in previous posts, we will not be covering these topics in any depth here.  For more information, the reader is encouraged to view the [EventBus](http://codingjunkie.net/guava-eventbus/) and [WatchService](http://codingjunkie.net/java-7-watchservice/) posts.  [NOTE: post updated on 02/28/2012 for clarity.]
+<img class="left" src="../assets/images/Java_Logo1-150x150.png" /> This post is going to cover using the Guava EventBus to publish changes to a directory or sub-directories detected by the Java 7 WatchService.  The Guava EventBus is a great way to add publish/subscribe communication to an application.  The WatchService, new in the Java 7 java.nio.file package, is used to monitor a directory for changes. Since the EventBus and WatchService have been covered in previous posts, we will not be covering these topics in any depth here.  For more information, the reader is encouraged to view the [EventBus](http://codingjunkie.net/guava-eventbus/) and [WatchService](http://codingjunkie.net/java-7-watchservice/) posts.  [NOTE: post updated on 02/28/2012 for clarity.]
 <!--more-->
 
 ### Why Use the EventBus

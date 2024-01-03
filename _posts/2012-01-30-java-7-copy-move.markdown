@@ -13,7 +13,7 @@ tags:
 - java
 ---
 
-<img class="left" src="{{ site.media_url }}/images/Java_Logo-150x150.png" /> This post is a continuation of my series on the Java 7 java.nio.file package, this time covering the copying and moving of files and complete directory trees.  If you have ever been frustrated by Java's lack of copy and move methods, then read on, for relief is at hand.  Included in the coverage is the very useful Files.walkFileTree method.  Before we dive into the main content however, some background information is needed. 
+<img class="left" src="../assets/images/Java_Logo-150x150.png" /> This post is a continuation of my series on the Java 7 java.nio.file package, this time covering the copying and moving of files and complete directory trees.  If you have ever been frustrated by Java's lack of copy and move methods, then read on, for relief is at hand.  Included in the coverage is the very useful Files.walkFileTree method.  Before we dive into the main content however, some background information is needed. 
 
 <!--more-->
 ### Path Objects

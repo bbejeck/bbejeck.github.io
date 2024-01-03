@@ -14,7 +14,7 @@ tags:
 - Date
 ---
 
-<img class="left" src="{{ site.media_url }}/images/javaEight.jpeg" /> This post is continues our review of the [Date](http://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html) API that came with the release of Java 8.  We are going to continue our concentration on classes that make working with dates/times very easy.  Working with date objects in previous releases of Java was very challenging with respect to adding time or getting the difference between dates.  Hopefully after looking at the classes we present here, your opinion of working with dates and times in Java will change.  Specifically, we are going to take a look at the following classes:
+<img class="left" src="../assets/images/javaEight.jpeg" /> This post is continues our review of the [Date](http://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html) API that came with the release of Java 8.  We are going to continue our concentration on classes that make working with dates/times very easy.  Working with date objects in previous releases of Java was very challenging with respect to adding time or getting the difference between dates.  Hopefully after looking at the classes we present here, your opinion of working with dates and times in Java will change.  Specifically, we are going to take a look at the following classes:
 
 
   +  Other classes to represent dates/times `ZonedDateTime`   and `OffsetDateTime`

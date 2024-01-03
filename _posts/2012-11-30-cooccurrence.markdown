@@ -15,7 +15,7 @@ tags:
 - MapReduce
 ---
 
-<img class="left" src="{{ site.media_url }}/images/hadoop-logo.jpeg" /> This post continues with our series of implementing the MapReduce algorithms found in the [Data-Intensive Text Processing with MapReduce](http://www.amazon.com/Data-Intensive-Processing-MapReduce-Synthesis-Technologies/dp/1608453421) book.  This time we will be creating a word co-occurrence matrix from a corpus of text. Previous posts in this series are:
+<img class="left" src="../assets/images/hadoop-logo.jpeg" /> This post continues with our series of implementing the MapReduce algorithms found in the [Data-Intensive Text Processing with MapReduce](http://www.amazon.com/Data-Intensive-Processing-MapReduce-Synthesis-Technologies/dp/1608453421) book.  This time we will be creating a word co-occurrence matrix from a corpus of text. Previous posts in this series are:
 
 
 

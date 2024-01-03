@@ -14,7 +14,7 @@ tags:
 - java
 ---
 
-<img class="left" src="{{ site.media_url }}/images/toolbox.jpg" /> In my [last post](http://codingjunkie.net/google-guava-synchronization-with-monitor) I covered using the `Monitor` class from the com.google.common.util.concurrent package in the Guava Library.  In this post I am going to continue my coverage of Guava concurrency utilities and discuss the `ListenableFuture` interface. A `ListenableFuture` extends the `Future` interface from the java.util.concurrent package, by adding a method that accepts a completion listener. 
+<img class="left" src="../assets/images/toolbox.jpg" /> In my [last post](http://codingjunkie.net/google-guava-synchronization-with-monitor) I covered using the `Monitor` class from the com.google.common.util.concurrent package in the Guava Library.  In this post I am going to continue my coverage of Guava concurrency utilities and discuss the `ListenableFuture` interface. A `ListenableFuture` extends the `Future` interface from the java.util.concurrent package, by adding a method that accepts a completion listener. 
 <!--more-->
 
 ### ListenableFuture

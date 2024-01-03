@@ -17,7 +17,7 @@ tags:
 - MapReduce
 ---
 
-<img class="left" src="{{ site.media_url }}/images/hadoop-logo.jpeg" /> We continue with our series on implementing MapReduce algorithms found in Data-Intensive Text Processing with MapReduce book. Other posts in this series: 
+<img class="left" src="../assets/images/hadoop-logo.jpeg" /> We continue with our series on implementing MapReduce algorithms found in Data-Intensive Text Processing with MapReduce book. Other posts in this series: 
 
 
 

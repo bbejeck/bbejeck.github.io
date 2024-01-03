@@ -14,7 +14,7 @@ tags:
 - UI
 ---
 
-<img class="left" src="{{ site.media_url }}/images/android_logo_no_words.gif" /> This is the second post in a 3 part series on implementing Android Drag and Drop.  In my [ last post](http://codingjunkie.net/android-drag-and-drop-part1/) I covered how to hide an ImageView and just show the DragShadowBuilder object at the start of a drag. This post is going to cover my efforts on restricting the drag area.
+<img class="left" src="../assets/images/android_logo_no_words.gif" /> This is the second post in a 3 part series on implementing Android Drag and Drop.  In my [ last post](http://codingjunkie.net/android-drag-and-drop-part1/) I covered how to hide an ImageView and just show the DragShadowBuilder object at the start of a drag. This post is going to cover my efforts on restricting the drag area.
 
 
 ### Trying to Restrict the Drag Area
