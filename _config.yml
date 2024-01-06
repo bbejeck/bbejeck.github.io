@@ -58,4 +58,4 @@ plugins:
 owner : "Bill Bejeck"
 year : "2024"
 # Google Analytics
-google_analytics_tracking_id: UA-16422585-1
+google_analytics: UA-16422585-1
