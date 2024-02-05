@@ -1,61 +1,84 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you: 
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-
-title: Random Thoughts on Coding
-description: "A coding blog about whatever comes to mind at the moment"
-author:
-  name: "Bill Bejeck"
-  email: "bbejeck@gmail.com"
-  url: "https://bbejeck.github.io/"
-
-baseurl: /
-
-source: .
-destination: ./_site
-permalink: /:title
-paginate: 8
-paginate_path: /page/:num/
-
-markdown: kramdown
-kramdown:
-    highlighter: rouge
-    syntax_highlighter_opts:
-        block:
-            line_numbers: true
-
-defaults:
-  -
-    scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "post"
-
-future: true
+# External plugins
+# See http://ixti.net/software/2013/01/28/using-jekyll-plugins-on-github-pages.html for making `jekyll archives` work.
 plugins:
-  - jekyll-seo-tag
-  - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-paginate-v2
+  - jekyll-seo-tag
 
-# Custom variables
-owner : "Bill Bejeck"
-year : "2024"
-# Google Analytics
-google_analytics: UA-16422585-1
+exclude:
+  - "/vendor/"
+
+remote_theme: centrarium 
+
+# Site settings
+title: Random Thoughts on Coding
+subtitle: "A technical blog on whatever comes to mind"
+email: bbejeck@gmail.com
+name: Bill Bejeck
+description: >
+  Personal blog for the musing/rambling of Bill Bejeck
+# Base URL of site (i.e. /blog). It should always start with a slash,
+# and never end with a slash. Set it to a blank value if hosting at the
+# root of your server.
+baseurl:
+url: "https://bbejeck.github.io/" # the base hostname & protocol for your site
+cover: "/assets/glacier_smaller.png"
+logo: "/assets/favicon.png"
+
+# Build settings
+markdown: kramdown
+inter_post_navigation: false
+highlightjs_theme: "rainbow"
+
+# Pagination Settings
+# https://github.com/sverrirs/jekyll-paginate-v2/blob/master/README-GENERATOR.md#site-configuration
+pagination:
+  enabled: true
+  per_page: 5
+  permalink: "/page/:num/"
+  sort_reverse: true
+
+# Disqus comments
+# disqus_shortname: bbejeck
+
+# Google analytics
+ga_tracking_id: "UA-16422585-1"
+
+
+# Social icons and sharing options
+#
+# Social settings are used in two places:
+# * In the footer, as links to your personal profiles
+# * After each blog post for sharing widgets
+#
+# Example:
+#
+# social:
+#   - name: Twitter                         # Name of the service
+#     icon: twitter                         # Font Awesome icon to use (minus fa- prefix)
+#     username: "@bbejeck"             # (User) Name to display in the footer link
+#     url: https://twitter.com/TheBenCentra # URL of your profile (leave blank to not display in footer)
+#     desc: Follow me on Twitter            # Description to display as link title, etc
+#     share: true                           # Include in the "Share" section of posts
+social:
+  - name: Twitter
+    icon: twitter
+    username: bbejeck
+    url: https://twitter.com/bbejeck
+    desc: Follow me on Twitter
+    share: true
+
+  - name: GitHub
+    icon: github
+    username: bbejeck
+    url: https://github.com/bbejeck
+    desc: Fork me on GitHub
+    share: false
+
+  - name: LinkedIn
+    icon: linkedin
+    username: bbejeck
+    url: https://www.linkedin.com/in/bbejeck/
+    desc: Connect with me on LinkedIn
+    share: true
+
