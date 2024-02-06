@@ -2,13 +2,11 @@
 # See http://ixti.net/software/2013/01/28/using-jekyll-plugins-on-github-pages.html for making `jekyll archives` work.
 plugins:
   - jekyll-sitemap
-  - jekyll-paginate
+  - jekyll-paginate-v2
   - jekyll-seo-tag
 
 exclude:
   - "/vendor/"
-
-remote_theme: bencentra/centrarium 
 
 # Site settings
 title: Random Thoughts on Coding
