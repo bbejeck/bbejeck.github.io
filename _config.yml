@@ -8,7 +8,7 @@ plugins:
 exclude:
   - "/vendor/"
 
-#remote_theme: bencentra/centrarium 
+remote_theme: bencentra/centrarium 
 
 # Site settings
 title: Random Thoughts on Coding
