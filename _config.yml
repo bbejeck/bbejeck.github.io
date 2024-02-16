@@ -21,7 +21,7 @@ description: >
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
 baseurl:
-url: "https://bbejeck.github.io/" # the base hostname & protocol for your site
+url: "https://codingjunkie.net/" # the base hostname & protocol for your site
 cover: "/assets/glacier_smaller.png"
 logo: "/assets/favicon.png"
 
