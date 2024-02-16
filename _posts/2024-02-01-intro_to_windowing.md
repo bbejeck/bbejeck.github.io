@@ -112,11 +112,10 @@ value from the inputs. But since windowing operates the same for either
 a reduce or aggregation will use an aggregation for our examples
 throughout the blog series.
 
-::: formalpara-title
-**A Kafka Streams windowed aggregation**
-:::
 
-``` {.java .numberLines}
+**A Kafka Streams windowed aggregation**
+
+``` java
 KStream<String,Double> iotHeatSensorStream =
   builder.stream("heat-sensor-input",
     Consumed.with(stringSerde, doubleSerde));
@@ -192,9 +191,8 @@ Fortunately, Kafka Streams provides the
 utility class making it easy to get the correct Serde for producing
 results back to Kafka:
 
-::: formalpara-title
+
 **Using the WindowedSerdes class to get a Serde for Windowed keys**
-:::
 
 ``` java
 Serde<Windowed<String>> windowedSerde =
@@ -259,11 +257,11 @@ SQL. As with the Kafka Streams example, we'll review the structure of a
 windowed aggregation, with specific window implementations covered in
 later posts.
 
-::: formalpara-title
-**Structure of Flink SQL windowed aggregation**
-:::
 
-``` {.sql .numberLines}
+**Structure of Flink SQL windowed aggregation**
+
+
+```sql
 SELECT window_start,
        window_end,
        device_id,
