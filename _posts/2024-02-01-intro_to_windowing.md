@@ -9,13 +9,12 @@ categories:
 - Java
 - Kafka-Streams
 tags: 
-- java
+- Java
 - Kafka-Streams
 - Stream-Processing
 keywords: 
 - Kafka-Streams
 - Flink-SQL
-- 
 description: Introduction to Windowing in Stream Processing  
 ---
 

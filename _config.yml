@@ -4,6 +4,8 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate-v2
   - jekyll-seo-tag
+  - jekyll-archives
+  - jekyll-feed
 
 exclude:
   - "/vendor/"
@@ -25,7 +27,7 @@ logo: "/assets/favicon.png"
 
 # Build settings
 markdown: kramdown
-inter_post_navigation: false
+inter_post_navigation: true
 highlightjs_theme: "rainbow"
 
 # Pagination Settings
@@ -35,6 +37,16 @@ pagination:
   per_page: 5
   permalink: "/page/:num/"
   sort_reverse: true
+
+jekyll-archives:
+  enabled: 'all'
+  layout: archive
+  permalinks:
+    year: '/:year/'
+    month: '/:year/:month/'
+    day: '/:year/:month/:day/'
+    tag: '/tag/:name/'
+    category: '/category/:name/'
 
 # Disqus comments
 # disqus_shortname: bbejeck

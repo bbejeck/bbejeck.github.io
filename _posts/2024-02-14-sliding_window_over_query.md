@@ -9,12 +9,12 @@ categories:
 - Java
 - Kafka-Streams
 tags: 
-- java
+- Java
 - Kafka-Streams
 - Stream-Processing
 keywords: 
 - Kafka-Streams
-- Flink-SQ
+- Flink-SQL
 description: Using Sliding windows and OVER aggregations  
 ---
 
