@@ -232,7 +232,7 @@ This illustration for tumbling windows can be summarized as \"give me \<aggregat
 
 -   [Kafka Streams in Action 2nd Edition](https://www.manning.com/books/kafka-streams-in-action-second-edition)
 
--   [Apache Flink on Confluent Cloud](https://www.confluent.io/product/flink/)
+-   [Apache Flink®  on Confluent Cloud](https://www.confluent.io/product/flink/)
 
 -   [Flink SQL Windows](https://nightlies.apache.org/flink/flink-docs-release-1.18/docs/dev/table/sql/queries/window-tvf/#windowing-table-valued-functions-windowing-tvfs)
 

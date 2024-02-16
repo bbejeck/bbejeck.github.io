@@ -45,7 +45,7 @@ aggregation over all time doesn't shed any light on specific periods of
 activity. Consider the following illustration:
 
 <figure>
-<img src="../images/ave_temp_over_time.png" alt="ave temp over time" />
+<img src="../assets/images/ave_temp_over_time.png" alt="ave temp over time" />
 <figcaption>Course grained average temperature readings</figcaption>
 </figure>
 
@@ -54,7 +54,7 @@ but it doesn't tell the whole story. Now let's take a look at capturing
 the average temp readings over specific intervals:
 
 <figure>
-<img src="../images/ave_temp_windowed.png" alt="ave temp windowed" />
+<img src="../assets/images/ave_temp_windowed.png" alt="ave temp windowed" />
 <figcaption>Windowed average temp readings</figcaption>
 </figure>
 
@@ -171,7 +171,7 @@ description, Kafka Streams wraps the original key in a
 object.
 
 <figure>
-<img src="../images/windowed_example.png" alt="windowed example" />
+<img src="../assets/images/windowed_example.png" alt="windowed example" />
 <figcaption>Windowed object</figcaption>
 </figure>
 
@@ -237,7 +237,7 @@ Functions*](https://sigmodrecord.org/publications/sigmodRecord/1806/pdfs/08_Indu
 that returns a table.
 
 <figure>
-<img src="../images/ptf_in_action.png" alt="ptf in action" />
+<img src="../assets/images/ptf_in_action.png" alt="ptf in action" />
 <figcaption>PTF table function returning a table</figcaption>
 </figure>
 
@@ -314,7 +314,7 @@ cover hopping and tumbling windows.
 
 # Resources
 
--   [Apache Flink &#174 on Confluent
+-   [Apache Flink®  on Confluent
     Cloud](https://www.confluent.io/product/flink/)
 
 -   [Flink SQL

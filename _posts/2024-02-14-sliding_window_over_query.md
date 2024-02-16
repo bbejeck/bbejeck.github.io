@@ -213,7 +213,7 @@ WHERE avg_temps > N;
 # Resouces
 
 -   [Kafka Streams in Action 2nd Edition](https://www.manning.com/books/kafka-streams-in-action-second-edition)
--   [Apache Flink on Confluent Cloud](https://www.confluent.io/product/flink/)
+-   [Apache Flink®  on Confluent Cloud](https://www.confluent.io/product/flink/)
 -   [Flink SQL Windows](https://nightlies.apache.org/flink/flink-docs-release-1.18/docs/dev/table/sql/queries/window-tvf/#windowing-table-valued-functions-windowing-tvfs)
 -   [Kafka Streams windowing documentation](https://docs.confluent.io/platform/current/streams/developer-guide/dsl-api.html#windowing)
 
