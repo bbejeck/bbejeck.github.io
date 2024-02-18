@@ -15,8 +15,9 @@ title: Random Thoughts on Coding
 subtitle: "A technical blog on whatever comes to mind"
 email: bbejeck@gmail.com
 name: Bill Bejeck
+author: Bill Bejeck
 description: >
-  Personal blog for the musing/rambling of Bill Bejeck
+  Personal blog for Bill Bejeck's technical rambling
 # Base URL of site (i.e. /blog). It should always start with a slash,
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
@@ -24,6 +25,9 @@ baseurl:
 url: "https://codingjunkie.net" # the base hostname & protocol for your site
 cover: "/assets/glacier_smaller.png"
 logo: "/assets/favicon.png"
+twitter:
+  username: bbejeck
+  card: summary
 
 # Build settings
 markdown: kramdown
@@ -50,9 +54,6 @@ jekyll-archives:
 
 # Disqus comments
 # disqus_shortname: bbejeck
-
-# Google analytics
-ga_tracking_id: "UA-16422585-1"
 
 
 # Social icons and sharing options
