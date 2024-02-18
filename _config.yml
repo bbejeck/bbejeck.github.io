@@ -39,7 +39,7 @@ pagination:
   sort_reverse: true
 
 jekyll-archives:
-  enabled: 'all'
+  enabled: all
   layout: archive
   permalinks:
     year: '/:year/'
