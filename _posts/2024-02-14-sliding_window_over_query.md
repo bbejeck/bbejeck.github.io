@@ -8,6 +8,7 @@ categories:
 - Kafka
 - Java
 - Kafka-Streams
+- Stream-Processing
 tags: 
 - Java
 - Kafka-Streams
@@ -15,6 +16,7 @@ tags:
 keywords: 
 - Kafka-Streams
 - Flink-SQL
+- Stream-Processing
 description: Using Sliding windows and OVER aggregations  
 ---
 
