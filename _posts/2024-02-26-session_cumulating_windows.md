@@ -20,9 +20,7 @@ keywords:
 description: Using Session and Cumulating aggregations  
 ---
 
-# Mastering Stream Processing - Session and Cumulating windows
-
-In the third installment of this windowing blog series, you’ll learn about cumulating and session windows. In previous posts, we’ve covered [hopping and tumbling windows](https://hopping_tumbling_link) and [sliding windows and the Flink SQL equivalent - OVER aggregations](https://sliding_over_aggregations). The cumulate window is unique to Flink SQL. The session window has been available in Kafka Streams since version 0.10.2 and is going to be available in the newest version (1.19) of Flink SQL as part of its stable windowing table-valued functions (TVFs).
+In the third installment of this windowing blog series, you’ll learn about cumulating and session windows. In previous posts, we’ve covered [hopping and tumbling windows](https://www.codingjunkie.net/mastering-stream-processing-hopping-tumbling-windows/) and [sliding windows and the Flink SQL equivalent - OVER aggregations](https://www.codingjunkie.net/mastering-stream-processing-sliding-windows/). The cumulate window is unique to Flink SQL. The session window has been available in Kafka Streams since version 0.10.2 and is going to be available in the newest version (1.19) of Flink SQL as part of its stable windowing table-valued functions (TVFs).
 
 Before jumping in, if you ask yourself what is cumulating and how does that relate to Accumulating? The difference between cumulate to accumulate is that the latter is a more intentional gathering while cumulate means to gather together what you already have.
 
