@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Mastering Stream Processing - Hoppping and Tumbling windows"
+author: Bill Bejeck
 date: 2024-02-07 20:23:23 -0400
 permalink: /mastering-stream-processing-hopping-tumbling-windows/
 comments: true
@@ -19,9 +20,6 @@ keywords:
 - Stream-Processing
 description: Using Hopping and Tumbling windows  
 ---
-
-
-# Mastering Stream Processing - Hopping and Tumbling windows
 
 In the first post of this series, we discussed what event streaming windowing is, and we examined in detail the structure of a windowed aggregate in Kafka Streams and Flink SQL.
 

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Mastering Stream Processing - Sliding windows and OVER aggregations"
+author: Bill Bejeck
 date: 2024-02-14 09:23:23 -0400
 permalink: /mastering-stream-processing-sliding-windows/
 comments: true
@@ -19,8 +20,6 @@ keywords:
 - Stream-Processing
 description: Using Sliding windows and OVER aggregations  
 ---
-
-# Mastering Stream Processing - Sliding Windows and OVER Aggregations
 
 In the third installment of this windowing blog series, you'll learn about sliding windows and a bit of SQL. In the previous post, we covered hopping and tumbling windows, both of which Kafka Streams and Flink SQL provide. In this installment, we will discuss sliding windows, supported by Kafka Streams and Flink SQL, or the logical equivalent in both. Let's jump into sliding windows.
 

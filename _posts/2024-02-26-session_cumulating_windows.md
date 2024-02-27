@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Mastering Stream Processing - Session and Cumulating windows"
+author: Bill Bejeck
 date: 2024-02-26 17:00:00 -0400
 permalink: /mastering-stream-processing-session-cumulating-windows/
 comments: true

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Mastering Stream Processing - Introduction to windowing."
+author: Bill Bejeck
 date: 2024-02-01 20:23:23 -0400
 permalink: /introduction-to-windowing/
 comments: true
@@ -19,8 +20,6 @@ keywords:
 - Stream-Processing
 description: Introduction to Windowing in Stream Processing  
 ---
-
-# Mastering Stream Processing - Introduction to windowing
 
 Stream processing is the best way to work with event data. While batch
 processing still has its use cases, and probably always will, only
