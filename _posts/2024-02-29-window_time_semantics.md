@@ -23,13 +23,13 @@ description: Understanding time semantics in stream processing with windowing
 
 In the previous blog in this series, we wrapped up coverage of the different windowing types. Here is the list of earlier installments in this series:
 
-1.  [Introduction to windowing]https://www.codingjunkie.net/introduction-to-windowing/
+1.  [Introduction to windowing](https://www.codingjunkie.net/introduction-to-windowing/)
 
-2.  [Hopping and Tumbling windows]https://www.codingjunkie.net/mastering-stream-processing-hopping-tumbling-windows/
+2.  [Hopping and Tumbling windows](https://www.codingjunkie.net/mastering-stream-processing-hopping-tumbling-windows/)
 
-3.  [Sliding windows and OVER aggregation]https://www.codingjunkie.net/mastering-stream-processing-sliding-windows/
+3.  [Sliding windows and OVER aggregation](https://www.codingjunkie.net/mastering-stream-processing-sliding-windows/)
 
-4.  [Session windows Cumulating windows]https://www.codingjunkie.net/mastering-stream-processing-session-cumulating-windows/
+4.  [Session windows Cumulating windows](https://www.codingjunkie.net/mastering-stream-processing-session-cumulating-windows/)
 
 In this post, we’ll move on from specific code examples and discuss the time semantics of window advancement and the forwarding of results. We’ve now discussed the different window types, how they function, and potential best use cases. But we’ve left some crucial questions unanswered. In this post, we’ll address the following questions:
 
