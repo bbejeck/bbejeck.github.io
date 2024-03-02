@@ -95,6 +95,7 @@ For all stateful operations in Kafka Streams, windowed results are buffered and 
 
 **Tumbling window with only final results**
 
+```java
     KStream<String,Double> iotHeatSensorStream =
       builder.stream("heat-sensor-input",
         Consumed.with(stringSerde, doubleSerde));
@@ -106,6 +107,7 @@ For all stateful operations in Kafka Streams, windowed results are buffered and 
              Materialized.with(stringSerde, aggregationSerde))
              .toStream().to("sensor-agg-output",
                Produced.with(windowedSerde, aggregationSerde))
+```
 
 1.  Specifying only emit results after the window closes
 
@@ -130,6 +132,7 @@ Consider this table definition tracking movie ratings entered by a user on a rev
 
 **Flink SQL table definition with watermark strategy**
 
+```sql
     CREATE TABLE ratings (
         rating_id INT,
         title STRING,
@@ -138,6 +141,7 @@ Consider this table definition tracking movie ratings entered by a user on a rev
         rating_time TIMESTAMP(3), <1> 
         WATERMARK FOR rating_time AS rating_time <2>
     )
+```
 
 1.  Timestamp of the movie rating event
 
@@ -168,6 +172,7 @@ So far, with our discussion of windowing, I’ve assumed the happy path of recor
 This illustration shows us that an out-of-order record would have been included in a now-closed window had it arrived in order. Given that we want our windowed results to have as complete a picture as possible, making allowances for out-of-order data makes sense. You should allow a grace period, where a window can include records it would otherwise reject. In Kafka Streams, you can explicitly add a grace period to a window definition:
 
 **Adding grace to Kafka Streams window operator**
+```java
 
     KStream<String,Double> iotHeatSensorStream =
       builder.stream("heat-sensor-input",
@@ -180,6 +185,7 @@ This illustration shows us that an out-of-order record would have been included 
              Materialized.with(stringSerde, aggregationSerde))
              .toStream().to("sensor-agg-output",
                Produced.with(windowedSerde, aggregationSerde))
+```
 
 1.  Defining a tumbling window of one minute with thirty seconds grace.
 
@@ -195,7 +201,7 @@ So, by defining a grace period, you can include records that arrive out of order
 Flink SQL also makes provisions for out-of-order records that operate in a similar manner. You would adjust the watermark strategy expression to allow for out-of-order records:
 
 **Flink SQL table definition with watermark strategy expression with a grace period**
-
+```sql
     CREATE TABLE ratings (
         rating_id INT,
         title STRING,
@@ -204,6 +210,7 @@ Flink SQL also makes provisions for out-of-order records that operate in a simil
         rating_time TIMESTAMP(3),
         WATERMARK FOR rating_time AS rating_time - INTERVAL '30' SECOND <1>
     )
+```
 
 1.  This watermark strategy allows records in the ratings table to be as much as 30 seconds out-of-order.
 
