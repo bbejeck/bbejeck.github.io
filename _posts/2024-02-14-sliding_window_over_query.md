@@ -76,11 +76,11 @@ There's a subtle difference in the results of `GROUP BY` and an `OVER` aggregati
 <figcaption>Table of temperature readings</figcaption>
 </figure>
 
-Now lets at the results of a `Group By` aggregation first:
+Now lets at the results of a `GROUP BY` aggregation first:
 
 <figure>
 <img src="../assets/images/group_by_results.png" alt="group by results" />
-<figcaption>Group By Aggregates collapse the details into singular results</figcaption>
+<figcaption>GROUP BY Aggregates collapse the details into singular results</figcaption>
 </figure>
 
 The results here are what we've all come to expect: the original rows are reduced into a single row per location with the average reading. Now contrast that with the `OVER` approach:
@@ -90,9 +90,9 @@ The results here are what we've all come to expect: the original rows are reduce
 <figcaption>OVER Aggregates return all rows in the range</figcaption>
 </figure>
 
-The results of an `OVER (PARTITION BY…​)` aggregation contain all the rows of the range. Each row contains the same value for the average by location, but you have all the other information available to view. This demonstrates the differences between `Group By` and `OVER (PARTITION BY..)` aggregations. Both clauses group things together, but a `Partition By` does not combine the rows in the results; each row remains distinct. It's important to note here that altough results are shown here for each row in the table, it's only for demonstration purposes. An `OVER` aggregation only returns results for rows that fall into the specifed range.
+The results of an `OVER (PARTITION BY…)` aggregation contain all the rows of the range. Each row contains the same value for the average by location, but you have all the other information available to view. This demonstrates the differences between `GROUP BY` and `OVER (PARTITION BY..)` aggregations. Both clauses group things together, but a `Partition By` does not combine the rows in the results; each row remains distinct. It's important to note here that altough results are shown here for each row in the table, it's only for demonstration purposes. An `OVER` aggregation only returns results for rows that fall into the specifed range.
 
-So, in what may be an oversimplification, an `OVER` aggregation allows you to perform aggregates and group the results but still view the individual rows. While a `Group By` will collapse the rows and provide a single-row result per grouping.
+So, in what may be an oversimplification, an `OVER` aggregation allows you to perform aggregates and group the results but still view the individual rows. While a `GROUP BY` will collapse the rows and provide a single-row result per grouping.
 
 Let's jump into an example query now. Let's say you have a fleet of IoT sensors deployed in different parts of a manufacturing process, and monitoring the temperature is essential to spot problems and keep the process running smoothly. So you'll want a query that will give you the average temps per location over the last minute:
 
@@ -102,11 +102,11 @@ Let's jump into an example query now. Let's say you have a fleet of IoT sensors 
 
 ``` sql
 SELECT device_id, report_time,
-   AVG(temp_reading) OVER (  
-     PARTITION BY location   
-     ORDER BY report_time  
-      RANGE BETWEEN INTERVAL '1' MINUTE PRECEDING AND CURRENT ROW 
- ) AS one_minute_location_temp_averages 
+   AVG(temp_reading) OVER ( <1>
+     PARTITION BY location  <2>
+     ORDER BY report_time   <3>
+      RANGE BETWEEN INTERVAL '1' MINUTE PRECEDING AND CURRENT ROW <4>
+ ) AS one_minute_location_temp_averages <5>
 FROM readings;
 ```
 
@@ -118,7 +118,7 @@ FROM readings;
 
 4.  A range definition specifying the range to go back 1 minute in results
 
-5.  The name the average calculation column
+5.  The name of the average calculation column
 
 So, this query will give us a running average of temperatures grouped by region but all rows. You can also specify the range as a count of rows from the current row. In Flink SQL, the `ORDER BY` is required and only works with ascending time attributes. The [range defintions](https://nightlies.apache.org/flink/flink-docs-release-1.18/docs/dev/table/sql/queries/over-agg/#range-definitions) come in two forms:
 
