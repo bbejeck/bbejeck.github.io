@@ -55,9 +55,7 @@ Let's show how you would implement a hopping window in Kafka Streams and Flink S
 
 For a hopping windowed aggregation in Kafka Streams, you'll use one of the factory methods in the [TimeWindows](https://www.javadoc.io/static/org.apache.kafka/kafka-streams/3.6.1/org/apache/kafka/streams/kstream/TimeWindows.html) class:
 
-::: formalpara-title
 **A Kafks Streams hopping window example**
-:::
 
 ``` java
 KStream<String,Double> iotHeatSensorStream =
@@ -87,9 +85,8 @@ Next, let's move on to hopping windows with Flink SQL.
 
 Note that Flink hopping windows can also be referred to as sliding windows. Kafka Stream offers a sliding window variant that behaves differently from its hopping window offering. So, for clarity, we'll only refer to Flink windows with an advance smaller than the window size as hopping windows.
 
-::: formalpara-title
 **Hopping window average with Flink SQL**
-:::
+
 
 ``` sql
 SELECT window_start,
@@ -147,9 +144,8 @@ Stepping through this illustration
 
 For tumbling windows in Kafka Streams you'll use [TimeWindows](https://www.javadoc.io/static/org.apache.kafka/kafka-streams/3.6.1/org/apache/kafka/streams/kstream/TimeWindows.html) class:
 
-::: formalpara-title
 **A Kafks Streams tumbling window example**
-:::
+
 
 ``` java
 KStream<String,Double> iotHeatSensorStream =
@@ -173,9 +169,8 @@ iotHeatSensorStream.groupByKey()
 
 Tumbling windows in Flink SQL are defined similarly to the hopping variety, with a couple of differences
 
-::: formalpara-title
 **Tumbling window average with Flink SQL**
-:::
+
 
 ``` sql
 SELECT window_start,

@@ -50,7 +50,7 @@ Each event in above illustration represents a purchase transaction, and for simp
 To use this functionality, specify the window type by using the reserved function name `CUMULATE` inside the `TABLE` function:
 
 **Specifying the CUMULATE function**
-
+```sql
     SELECT window_start,
            window_end,
            user_id,
@@ -64,6 +64,7 @@ To use this functionality, specify the window type by using the reserved functio
     GROUP BY window_start,
              window_end,
              user_id
+```
 
 Let’s break this query down:
 
@@ -99,7 +100,7 @@ So, following along with this illustration, the session window continues to grow
 Here’s how you define a session window in Kafka Streams:
 
 **Session windows in Kafka Streams**
-
+``` java
      Serde<Windowed<String>> sessionWindowSerde =
           WindowedSerdes.sessionWindowedSerdeFrom(String.class); <1>
      builder.stream(inputTopic, Consumed.with(Serdes.String(), clicksSerde))
@@ -111,6 +112,7 @@ Here’s how you define a session window in Kafka Streams:
             .count()
             .toStream()
             .to(outputTopic, Produced.with(sessionWindowSerde, Serdes.Long()));
+```
 
 Let’s break it down step by step (btw, Serde here refers to Serializer/Deserializer! aha, welcome back to distributed systems world)
 
@@ -125,7 +127,7 @@ Let’s break it down step by step (btw, Serde here refers to Serializer/Deseria
 To define a [session window in Flink SQL](https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/dev/table/sql/queries/window-tvf/#session) you’ll use the windowing TVF format assuming the use case of tracking a click stream on a website:
 
 **Session Windows in Flink SQL**
-
+```sql
     SELECT window_start,
            window_end,
            COUNT(click) AS total_clicks
@@ -136,6 +138,7 @@ To define a [session window in Flink SQL](https://nightlies.apache.org/flink/fli
                     )
                 )
     GROUP BY window_start, window_end;
+```
 
 Let’s break it down step by step:
 
