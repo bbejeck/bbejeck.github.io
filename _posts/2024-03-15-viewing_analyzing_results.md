@@ -4,7 +4,7 @@ title: "Mastering Stream Processing - Viewing and analyzing results"
 author: Bill Bejeck
 date: 2024-03-15 12:40:00 -0400
 permalink: /mastering-stream-processing-viewing-results/
-comments: true
+comments: false
 categories: 
 - Kafka
 - Java
