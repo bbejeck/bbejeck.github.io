@@ -73,9 +73,8 @@ Now that you have the `StreamTableEnvironment`, the following steps are to creat
     ");", kafkaPort); <2>
 ```      
 
-    1. A placeholder for String.format to set the Apache Kafka® port
-
-    2. The variable containing the Kafka port determined by the KafkaContainer
+1. A placeholder for String.format to set the Apache Kafka® port
+2. The variable containing the Kafka port determined by the KafkaContainer
 
 Here, the `WITH` clause specifies to use the [Flink Kafka connector](https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/connectors/table/kafka/#apache-kafka-sql-connector). The test will also use [Testcontainers](https://java.testcontainers.org/modules/kafka/) to provide the running Kafka instance. I won’t go into using Testcontainers in a test, but you can get the details from [this blog post by Atomic Jar](https://www.atomicjar.com/2023/06/testing-kafka-applications-with-testcontainers/).
 
@@ -132,13 +131,10 @@ Here, we’re simply using the familiar SQL `INSERT` statement to get data into 
        assertEquals(expectedRowResults, actualResults); <4>
 ```
 
-    1. Executing the query
-
-    2. Extracting the results into an ArrayList
-
-    3. Creating the expected results
-
-    4. Asserting the actual results match the expected ones.
+1. Executing the query
+2. Extracting the results into an ArrayList
+3. Creating the expected results
+4. Asserting the actual results match the expected ones.
 
 So, the final step is straightforward. The test executes the query and compares the returned results to what it expects them to be. Notice that since we’ve inserted simple data, it’s trivial to construct the predicted list of results. For completeness, here’s the code for the `rowObjectsFromTableResult` method:
 
